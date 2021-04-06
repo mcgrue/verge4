@@ -87,6 +87,18 @@ void loop() {
 			case SDL_QUIT:
 				keep_window_open = false;
 				break;
+			case SDL_KEYDOWN:
+				Uint8 const *keys = SDL_GetKeyboardState(nullptr);
+
+				if (keys[SDL_SCANCODE_W] == 1)
+					cout << "up" << endl;
+				else if (keys[SDL_SCANCODE_S] == 1)
+					cout << "down" << endl;
+				else if (keys[SDL_SCANCODE_A] == 1)
+					cout << "left" << endl;
+				else if (keys[SDL_SCANCODE_D] == 1)
+					cout << "right" << endl;
+				break;
 			}
 		}
 
@@ -101,9 +113,8 @@ int SDL_main(int argc, char **argv) {
 
 	cout << j3["pi"] << SDL_atoi("a") << endl;
 
-	//init();
-	//loop();
+	init();
+	loop();
 
-	
 	return 0;
 }
