@@ -14,8 +14,6 @@ SDL_Window  *m_window;
 SDL_Surface *m_window_surface;
 SDL_Event    m_window_event;
 
-
-
 void draw() {
 	SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
 	SDL_BlitSurface(m_image, NULL, m_window_surface, &m_image_position);
@@ -24,7 +22,7 @@ void draw() {
 
 void update(double delta_time) {
 	m_image_x = m_image_x + (5 * delta_time);
-	m_image_position.x = m_image_x;
+	m_image_position.x = (int)m_image_x;
 }
 
 SDL_Surface *load_surface(char const *path) {
