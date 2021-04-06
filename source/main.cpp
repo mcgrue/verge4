@@ -1,7 +1,9 @@
 #include <iostream>
 #include "SDL.h"
+#include "third_party/JSON/json.hpp"
 
 using namespace std;
+using json = nlohmann::json;
 
 SDL_Surface *m_image;
 SDL_Rect     m_image_position;
@@ -11,6 +13,8 @@ double       m_image_y;
 SDL_Window  *m_window;
 SDL_Surface *m_window_surface;
 SDL_Event    m_window_event;
+
+
 
 void draw() {
 	SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
@@ -93,11 +97,13 @@ void loop() {
 
 
 int SDL_main(int argc, char **argv) {
+	auto j3 = json::parse(R"({"happy": true, "pi": 3.141})");
+
+	cout << j3["pi"] << SDL_atoi("a") << endl;
+
+	//init();
+	//loop();
+
 	
-	cout << "hello world" << SDL_atoi("a") << endl;
-
-	init();
-	loop();
-
 	return 0;
 }
