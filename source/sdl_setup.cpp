@@ -14,6 +14,7 @@ SDL_Window  *m_window;
 SDL_Surface *m_window_surface;
 SDL_Event    m_window_event;
 
+Direction    m_direction;
 
 void draw() {
 	SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
@@ -22,8 +23,30 @@ void draw() {
 }
 
 void update(double delta_time) {
-	m_image_x = m_image_x + (5 * delta_time);
+
+	double d = (5 * delta_time);
+	
+	switch (m_direction) {
+		case Direction::NONE:
+			break;
+		case Direction::UP:
+			m_image_y = m_image_y - d;
+			break;
+		case Direction::DOWN:
+			m_image_y = m_image_y + d;
+			break;
+		case Direction::LEFT:
+			m_image_x = m_image_x - d;
+			break;
+		case Direction::RIGHT:
+			m_image_x = m_image_x + d;
+			break;
+		default:
+			break;
+	}
+
 	m_image_position.x = (int)m_image_x;
+	m_image_position.y = (int)m_image_y;
 }
 
 SDL_Surface *load_surface(char const *path) {
@@ -87,16 +110,29 @@ void loop() {
 				keep_window_open = false;
 				break;
 			case SDL_KEYDOWN:
+			{
 				Uint8 const *keys = SDL_GetKeyboardState(nullptr);
 
-				if (keys[SDL_SCANCODE_W] == 1)
-					cout << "up" << endl;
-				else if (keys[SDL_SCANCODE_S] == 1)
-					cout << "down" << endl;
-				else if (keys[SDL_SCANCODE_A] == 1)
-					cout << "left" << endl;
-				else if (keys[SDL_SCANCODE_D] == 1)
-					cout << "right" << endl;
+					if (keys[SDL_SCANCODE_W] == 1) {
+						cout << "up" << endl;
+						m_direction = Direction::UP;
+					} 
+					else if (keys[SDL_SCANCODE_S] == 1) {
+						cout << "down" << endl;
+						m_direction = Direction::DOWN;
+					} 
+					else if (keys[SDL_SCANCODE_A] == 1) {
+						cout << "left" << endl;
+						m_direction = Direction::LEFT;
+					} 
+					else if (keys[SDL_SCANCODE_D] == 1) {
+						cout << "rigth" << endl;
+						m_direction = Direction::RIGHT;
+					}
+				}
+				break;
+			case SDL_KEYUP:
+				m_direction = Direction::NONE;
 				break;
 			}
 		}

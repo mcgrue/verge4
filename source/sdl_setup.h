@@ -3,6 +3,15 @@
 
 #include "SDL.h"
 
+enum class Direction
+{
+	NONE,
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+};
+
 void draw();
 void update(double delta_time);
 SDL_Surface *load_surface(char const *path);
