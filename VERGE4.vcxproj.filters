@@ -9,5 +9,13 @@
     <ClCompile Include="source\main.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\sdl_setup.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\sdl_setup.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
