@@ -72,6 +72,11 @@ inline SDL_Surface* load_surface(const std::string& path)
 	return optimizedSurface;
 }
 
+inline SDL_Texture* load_texture(const std::string& path)
+{
+	return IMG_LoadTexture(get_game_renderer(), path.c_str());
+}
+
 inline fs::path get_my_directory(const string& filepath)
 {
 	auto p = fs::path(filepath);

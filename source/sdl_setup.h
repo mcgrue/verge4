@@ -18,3 +18,4 @@ void init();
 void destroy();
 void loop();
 SDL_Window* get_game_window();
+SDL_Renderer* get_game_renderer();

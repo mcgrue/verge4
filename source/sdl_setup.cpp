@@ -13,9 +13,10 @@ SDL_Rect     m_guy_position, m_map_position;
 double       m_image_x;
 double       m_image_y;
 
-SDL_Window*  m_window;
-SDL_Surface* m_window_surface;
-SDL_Event    m_window_event;
+SDL_Window*   m_window;
+SDL_Surface*  m_window_surface;
+SDL_Event     m_window_event;
+SDL_Renderer* m_renderer;
 
 Direction    m_direction;
 
@@ -26,9 +27,22 @@ SDL_Window* get_game_window()
 	return m_window;
 }
 
+SDL_Renderer* get_game_renderer()
+{
+	return m_renderer;
+}
+
 void draw() {
 	SDL_FillRect(m_window_surface, nullptr, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
-	SDL_BlitSurface(vsp.getSourceImage(), nullptr, m_window_surface, &m_map_position);
+	//SDL_BlitSurface(vsp.getSourceImage(), nullptr, m_window_surface, &m_map_position);
+	
+	vsp.drawTile(m_window_surface, 1, { { 0, 0 } });
+	vsp.drawTile(m_window_surface, 2, { { 16, 16 } });
+	vsp.drawTile(m_window_surface, 3, { { 32, 32 } });
+	vsp.drawTile(m_window_surface, 4, { { 48, 48 } });
+
+	
+	
 	SDL_BlitSurface(m_guy, nullptr, m_window_surface, &m_guy_position);
 	SDL_UpdateWindowSurface(m_window);
 }
@@ -71,6 +85,12 @@ void init() {
 	{
 		std::cout << "Failed to create window\n";
 		std::cout << "SDL2 Error: " << SDL_GetError() << "\n";
+		return;
+	}
+
+	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (m_renderer == nullptr) {
+		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
 		return;
 	}
 

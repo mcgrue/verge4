@@ -9,6 +9,27 @@
 using namespace std;
 using namespace nlohmann;
 
+struct TileSize
+{
+public:
+	int width;
+	int height;
+};
+
+typedef unsigned int tileindex_t;
+
+union vec2i {
+	struct {
+		int x, y;
+	};
+	struct {
+		int w, h;
+	};
+	int m[2];
+};
+
+typedef vec2i pixelcoordinates_t;
+
 class TileSet {
 
 public:
@@ -19,6 +40,8 @@ public:
 	TileSet(TileSet&& o) noexcept; // move constructor
 	~TileSet(); // destructor
 
+	void drawTile(SDL_Surface* surface, tileindex_t idx, pixelcoordinates_t drawTo);
+	
 	SDL_Surface* getSourceImage();
 
 private:
@@ -28,6 +51,9 @@ private:
 	string absPathToSrcImg;
 	basic_json<> data;
 	string pathToJSON;
+	TileSize tilesize;
+	int tilesPerRow;
+	SDL_Rect src, dest;
 };
 
 inline TileSet::TileSet()
@@ -42,11 +68,16 @@ inline TileSet::TileSet(const string& inputFile)
 	this->pathToJSON = inputFile;
 	const auto source_image = json["source_image"];
 	std::string blah = source_image;
-	const auto dickbutts = get_path_relative(inputFile, blah);
+	const auto pathToTilesetImage = get_path_relative(inputFile, blah);
 
-	assert_file_exists(dickbutts);
-	this->absPathToSrcImg = dickbutts;
+	assert_file_exists(pathToTilesetImage);
+	this->absPathToSrcImg = pathToTilesetImage;
 	this->srcImg = load_surface(this->absPathToSrcImg);
+
+	this->src.h = this->dest.h = this->tilesize.height = json["tilesize"]["height"];
+	this->src.w = this->dest.w = this->tilesize.width = json["tilesize"]["width"];
+	
+	this->tilesPerRow = json["tiles_per_row"];
 }
 
 inline TileSet::TileSet(const TileSet& obj)
@@ -60,7 +91,10 @@ inline TileSet& TileSet::operator=(TileSet other) noexcept // call copy or move 
 	std::swap(srcImg, other.srcImg);
 	std::swap(data, other.data);
 	std::swap(pathToJSON, other.pathToJSON);
-	
+	std::swap(tilesize, other.tilesize);
+	std::swap(tilesPerRow, other.tilesPerRow);
+	std::swap(dest, other.dest);
+	std::swap(src, other.src);
 	return *this;
 }
 
@@ -70,11 +104,26 @@ inline TileSet::TileSet(TileSet&& o) noexcept
 	this->srcImg = std::move(o.srcImg);
 	this->data = std::move(o.data);
 	this->pathToJSON = std::move(o.pathToJSON);
+	this->tilesize = std::move(o.tilesize);
+	this->tilesPerRow = std::move(o.tilesPerRow);
+	this->dest = std::move(o.dest);
+	this->src = std::move(o.src);
 }
 
 inline TileSet::~TileSet()
 {
 	
+}
+
+inline void TileSet::drawTile(SDL_Surface* surface, tileindex_t idx, pixelcoordinates_t drawTo)
+{
+	src.x = (idx % this->tilesPerRow) * src.w;
+	src.y = (idx / this->tilesPerRow) * src.h;
+
+	dest.x = drawTo.x;
+	dest.y = drawTo.y;
+
+	SDL_BlitSurface(srcImg, &src, surface, &dest);
 }
 
 inline SDL_Surface* TileSet::getSourceImage()
