@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <filesystem>
 #include <sdl.h>
@@ -35,9 +35,13 @@ class TileSet {
 public:
 	TileSet();
 	TileSet(const string& inputFile); // simple constructor
-	TileSet(const TileSet& obj); // copy constructor
-	TileSet& operator=(TileSet other) noexcept;
-	TileSet(TileSet&& o) noexcept; // move constructor
+
+	TileSet(const TileSet& obj) noexcept; // copy
+	TileSet& operator=(TileSet& o) noexcept; //copy
+	
+	TileSet& operator=(TileSet&& other) noexcept; // move 
+	TileSet(TileSet&& o) noexcept; // move
+
 	~TileSet(); // destructor
 
 	void drawTile(SDL_Surface* surface, tileindex_t idx, pixelcoordinates_t drawTo);
@@ -80,12 +84,21 @@ inline TileSet::TileSet(const string& inputFile)
 	this->tilesPerRow = json["tiles_per_row"];
 }
 
-inline TileSet::TileSet(const TileSet& obj)
+inline TileSet& TileSet::operator=(TileSet& o) noexcept // copy
 {
+	this->srcJSONPath = o.srcJSONPath;
+	this->srcImg = o.srcImg; // do we want to copy the actual texture so we have a new instance? 😔
+	this->data = o.data;
+	this->pathToJSON = o.pathToJSON;
+	this->tilesize = o.tilesize;
+	this->tilesPerRow = o.tilesPerRow;
+	this->dest = o.dest;
+	this->src = o.src;
 	
+	return *this;
 }
 
-inline TileSet& TileSet::operator=(TileSet other) noexcept // call copy or move constructor to construct other
+inline TileSet& TileSet::operator=(TileSet&& other) noexcept // move
 {
 	std::swap(srcJSONPath, other.srcJSONPath); // exchange resources between *this and other
 	std::swap(srcImg, other.srcImg);
