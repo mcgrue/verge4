@@ -4,6 +4,12 @@
     <Filter Include="source">
       <UniqueIdentifier>{91f9387c-5ae2-412a-a34b-dad0f9832fc9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="third_party">
+      <UniqueIdentifier>{9aff41f0-d722-425c-b330-a807d137a9a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\JSON">
+      <UniqueIdentifier>{327a993e-e25a-4096-b6d6-84ba82a4898d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -16,6 +22,9 @@
   <ItemGroup>
     <ClInclude Include="source\sdl_setup.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\JSON\json.hpp">
+      <Filter>third_party\JSON</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

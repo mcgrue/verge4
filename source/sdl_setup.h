@@ -14,7 +14,7 @@ enum class Direction
 
 void draw();
 void update(double delta_time);
-SDL_Surface *load_surface(char const *path);
+SDL_Surface *load_bmp(char const *path);
 void init();
 void destroy();
 void loop();
