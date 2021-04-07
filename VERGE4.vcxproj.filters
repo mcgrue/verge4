@@ -35,5 +35,8 @@
     <ClInclude Include="source\util\util.h">
       <Filter>source\util</Filter>
     </ClInclude>
+    <ClInclude Include="source\util\types.h">
+      <Filter>source\util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

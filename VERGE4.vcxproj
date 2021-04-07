@@ -20,6 +20,7 @@
     <ClInclude Include="source\sdl_setup.h" />
     <ClInclude Include="source\tilemap.h" />
     <ClInclude Include="source\tileset.h" />
+    <ClInclude Include="source\util\types.h" />
     <ClInclude Include="source\util\util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

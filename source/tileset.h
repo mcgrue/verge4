@@ -1,34 +1,13 @@
 ﻿#pragma once
 
-#include <filesystem>
 #include <sdl.h>
 #include <string>
 #include "third_party/JSON/json.hpp"
 #include "util/util.h"
+#include "util/types.h"
 
 using namespace std;
 using namespace nlohmann;
-
-struct TileSize
-{
-public:
-	int width;
-	int height;
-};
-
-typedef unsigned int tileindex_t;
-
-union vec2i {
-	struct {
-		int x, y;
-	};
-	struct {
-		int w, h;
-	};
-	int m[2];
-};
-
-typedef vec2i pixelcoordinates_t;
 
 class TileSet {
 
