@@ -117,6 +117,11 @@ inline TileSet::~TileSet()
 
 inline void TileSet::drawTile(SDL_Surface* surface, tileindex_t idx, pixelcoordinates_t drawTo)
 {
+	if(idx==0 && engine_options.never_render_tile_0)
+	{
+		return;
+	}
+	
 	src.x = (idx % this->tilesPerRow) * src.w;
 	src.y = (idx / this->tilesPerRow) * src.h;
 

@@ -9,6 +9,13 @@
 #include "third_party/JSON/json.hpp"
 #include "sdl_setup.h"
 
+struct engine_options
+{
+	bool never_render_tile_0 = true;
+};
+
+inline engine_options engine_options;
+
 namespace fs = std::experimental::filesystem;
 using namespace std;
 using namespace nlohmann;

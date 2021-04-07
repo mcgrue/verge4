@@ -37,12 +37,14 @@ void draw() {
 	//SDL_BlitSurface(vsp.getSourceImage(), nullptr, m_window_surface, &m_map_position);
 	
 	vsp.drawTile(m_window_surface, 1, { { 0, 0 } });
+	vsp.drawTile(m_window_surface, 0, { { 0, 0 } });
 	vsp.drawTile(m_window_surface, 2, { { 16, 16 } });
+	vsp.drawTile(m_window_surface, 0, { { 16, 16 } });
 	vsp.drawTile(m_window_surface, 3, { { 32, 32 } });
+	vsp.drawTile(m_window_surface, 0, { { 32, 32 } });
 	vsp.drawTile(m_window_surface, 4, { { 48, 48 } });
+	vsp.drawTile(m_window_surface, 0, { { 48, 48 } });
 
-	
-	
 	SDL_BlitSurface(m_guy, nullptr, m_window_surface, &m_guy_position);
 	SDL_UpdateWindowSurface(m_window);
 }
