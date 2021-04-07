@@ -1,0 +1,629 @@
+{
+  "notes": [],
+  "name": "evil_lab_f1",
+  "vsp": {
+    "default": "evil_lab.vsp.json",
+    "obstructions": "evil_lab.obsvsp.json"
+  },
+  "music": "",
+  "renderstring": "10,1,4,3,7,E,2,5,6,8,9,11,R",
+  "initscript": "start",
+  "starting_coordinates": [
+    0,
+    0
+  ],
+  "layers": [
+    {
+      "name": "Floors",
+      "parallax": {
+        "X": 1,
+        "Y": 1
+      },
+      "dimensions": {
+        "X": 220,
+        "Y": 69
+      },
+      "alpha": 1,
+      "vsp": "default",
+      "MAPED_HIDDEN": false
+    },
+    {
+      "name": "=NOT USED 3=",
+      "parallax": {
+        "X": 1,
+        "Y": 1
+      },
+      "dimensions": {
+        "X": 220,
+        "Y": 69
+      },
+      "alpha": 1,
+      "vsp": "default",
+      "MAPED_HIDDEN": false
+    },
+    {
+      "name": "Interactables",
+      "parallax": {
+        "X": 1,
+        "Y": 1
+      },
+      "dimensions": {
+        "X": 220,
+        "Y": 69
+      },
+      "alpha": 1,
+      "vsp": "default",
+      "MAPED_HIDDEN": false
+    },
+    {
+      "name": "Signs",
+      "parallax": {
+        "X": 1,
+        "Y": 1
+      },
+      "dimensions": {
+        "X": 220,
+        "Y": 69
+      },
+      "alpha": 1,
+      "vsp": "default",
+      "MAPED_HIDDEN": false
+    },
+    {
+      "name": "=NOT USED 2=",
+      "parallax": {
+        "X": 1,
+        "Y": 1
+      },
+      "dimensions": {
+        "X": 220,
+        "Y": 69
+      },
+      "alpha": 1,
+      "vsp": "default",
+      "MAPED_HIDDEN": false
+    },
+    {
+      "name": "Extra Deco",
+      "parallax": {
+        "X": 1,
+        "Y": 1
+      },
+      "dimensions": {
+        "X": 220,
+        "Y": 69
+      },
+      "alpha": 1,
+      "vsp": "default",
+      "MAPED_HIDDEN": false
+    },
+    {
+      "name": "=NOT USED 4=",
+      "parallax": {
+        "X": 1,
+        "Y": 1
+      },
+      "dimensions": {
+        "X": 220,
+        "Y": 69
+      },
+      "alpha": 1,
+      "vsp": "default",
+      "MAPED_HIDDEN": false
+    },
+    {
+      "name": "=NOT USED=",
+      "parallax": {
+        "X": 1,
+        "Y": 1
+      },
+      "dimensions": {
+        "X": 220,
+        "Y": 69
+      },
+      "alpha": 1,
+      "vsp": "default",
+      "MAPED_HIDDEN": false
+    },
+    {
+      "name": "Parallax FG",
+      "parallax": {
+        "X": 1.2,
+        "Y": 1.2
+      },
+      "dimensions": {
+        "X": 220,
+        "Y": 69
+      },
+      "alpha": 1,
+      "vsp": "default",
+      "MAPED_HIDDEN": false
+    },
+    {
+      "name": "Parallax BG",
+      "parallax": {
+        "X": 0.4,
+        "Y": 0.4
+      },
+      "dimensions": {
+        "X": 220,
+        "Y": 69
+      },
+      "alpha": 1,
+      "vsp": "default",
+      "MAPED_HIDDEN": false
+    },
+    {
+      "name": "Fishing",
+      "parallax": {
+        "X": 1,
+        "Y": 1
+      },
+      "dimensions": {
+        "X": 220,
+        "Y": 69
+      },
+      "alpha": 1,
+      "vsp": "default",
+      "MAPED_HIDDEN": false
+    }
+  ],
+  "zones": [
+    {
+      "name": "NULL_ZONE",
+      "activation_script": "",
+      "activation_chance": 0,
+      "can_by_adjacent_activated": false
+    },
+    {
+      "name": "Evil_Up",
+      "activation_script": "Evil_Up",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": false
+    },
+    {
+      "name": "Evil_Down",
+      "activation_script": "Evil_Down",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": false
+    },
+    {
+      "name": "Left_Button",
+      "activation_script": "Left_Button",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": false
+    },
+    {
+      "name": "Right_Button",
+      "activation_script": "Right_Button",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": false
+    },
+    {
+      "name": "Switch_Red_Platform",
+      "activation_script": "Switch_Red_Platform",
+      "activation_chance": 0,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "Switch_Green_Platform",
+      "activation_script": "Switch_Green_Platform",
+      "activation_chance": 0,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "Ladies_room",
+      "activation_script": "wRoomEnter",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "Ladies_room_Exit",
+      "activation_script": "wRoomExit",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "Mens_room",
+      "activation_script": "mRoomEnter",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "Mens_room_Exit",
+      "activation_script": "mRoomExit",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "to tube",
+      "activation_script": "to_tube",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "from tube",
+      "activation_script": "from_tube",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "tube activate",
+      "activation_script": "tube_out",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "leftstair",
+      "activation_script": "left_stair",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "rightstair",
+      "activation_script": "right_stair",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "cutscene_bathrooms",
+      "activation_script": "cutscene_bathrooms",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "From_HR",
+      "activation_script": "from_hr",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "cutscene_hr",
+      "activation_script": "cutscene_hr",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "hr_bunny",
+      "activation_script": "hr_bunny",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "hr_monitor_1",
+      "activation_script": "hr_monitor_1",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "hr_monitor_2",
+      "activation_script": "hr_monitor_2",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "hr_list",
+      "activation_script": "hr_list",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "switch",
+      "activation_script": "chest_switch",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "green_chest",
+      "activation_script": "green_chest",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "hr_desk",
+      "activation_script": "hr_desk",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "lobby_monitor_1",
+      "activation_script": "lobby_monitor_1",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "lobby_monitor_2",
+      "activation_script": "lobby_monitor_2",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "lobby_monitor_3",
+      "activation_script": "lobby_monitor_3",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "lobby_monitor_4",
+      "activation_script": "lobby_monitor_4",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "up_to_lobby_from_right",
+      "activation_script": "up_to_lobby_from_right",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "hamburger",
+      "activation_script": "hamburger",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "red_chest",
+      "activation_script": "red_chest",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "FIGHT_032_Lab_Rat_Gang",
+      "activation_script": "FIGHT_032_Lab_Rat_Gang",
+      "activation_chance": 1,
+      "can_by_adjacent_activated": true
+    },
+    {
+      "name": "To Service Stairs From Mens",
+      "activation_script": "ToServiceStairsFromMens",
+      "activation_chance": "1",
+      "can_by_adjacent_activated": false
+    },
+    {
+      "name": "To Service Stairs From Womens",
+      "activation_script": "ToServiceStairsFromWomens",
+      "activation_chance": "1",
+      "can_by_adjacent_activated": false
+    }
+  ],
+  "entities": [
+    {
+      "name": "",
+      "filename": "chrs/monsters/Dorkupine Lab.json",
+      "location": {
+        "tx": 20,
+        "ty": 18,
+        "layer": "Entity Layer (E)",
+        "px": 320,
+        "py": 288
+      },
+      "facing": "Right",
+      "pays_attention_to_obstructions": true,
+      "is_an_obstruction": true,
+      "autofaces": true,
+      "speed": 100,
+      "wander": {
+        "mode": "Scripted",
+        "delay": 0,
+        "initial_movestring": ""
+      },
+      "activation_script": "girl_dorkupine",
+      "animation": "Idle Down"
+    },
+    {
+      "name": "",
+      "filename": "chrs/monsters/Dorkupine Lab.json",
+      "location": {
+        "tx": 23,
+        "ty": 18,
+        "layer": "Entity Layer (E)",
+        "px": 368,
+        "py": 288
+      },
+      "facing": "Left",
+      "pays_attention_to_obstructions": true,
+      "is_an_obstruction": true,
+      "autofaces": true,
+      "speed": 100,
+      "wander": {
+        "mode": "Scripted",
+        "delay": 0,
+        "initial_movestring": ""
+      },
+      "activation_script": "boy_dorkupine",
+      "animation": "Idle Down"
+    },
+    {
+      "name": "Lab Manager",
+      "filename": "chrs/monsters/Devil White.json",
+      "location": {
+        "tx": 142,
+        "ty": 10,
+        "layer": "Entity Layer (E)",
+        "px": 2272,
+        "py": 160
+      },
+      "facing": "Left",
+      "pays_attention_to_obstructions": true,
+      "is_an_obstruction": true,
+      "autofaces": true,
+      "speed": 100,
+      "wander": {
+        "mode": "Scripted",
+        "delay": 0,
+        "initial_movestring": ""
+      },
+      "activation_script": "hr_demon",
+      "animation": "Idle Down"
+    },
+    {
+      "name": "switch_upine",
+      "filename": "chrs/monsters/Dorkupine Lab.json",
+      "location": {
+        "tx": 11,
+        "ty": 27,
+        "layer": "Entity Layer (E)",
+        "px": 176,
+        "py": 432
+      },
+      "facing": "Down",
+      "pays_attention_to_obstructions": true,
+      "is_an_obstruction": true,
+      "autofaces": true,
+      "speed": 100,
+      "wander": {
+        "mode": "Scripted",
+        "delay": 0,
+        "initial_movestring": ""
+      },
+      "activation_script": "switch_upine",
+      "animation": "Idle Down"
+    },
+    {
+      "name": "LAB RAT GANG 1",
+      "filename": "chrs/monsters/Dorkupine Lab.json",
+      "location": {
+        "tx": 0,
+        "ty": 0,
+        "layer": "Entity Layer (E)",
+        "px": 0,
+        "py": 0
+      },
+      "facing": "Right",
+      "pays_attention_to_obstructions": true,
+      "is_an_obstruction": true,
+      "autofaces": true,
+      "speed": 100,
+      "wander": {
+        "mode": "Scripted",
+        "delay": 0,
+        "initial_movestring": ""
+      },
+      "activation_script": "",
+      "animation": "Idle Down"
+    },
+    {
+      "name": "LAB RAT GANG 2",
+      "filename": "chrs/monsters/Dorkupine Lab.json",
+      "location": {
+        "tx": 0,
+        "ty": 0,
+        "layer": "Entity Layer (E)",
+        "px": 0,
+        "py": 0
+      },
+      "facing": "Right",
+      "pays_attention_to_obstructions": true,
+      "is_an_obstruction": true,
+      "autofaces": true,
+      "speed": 100,
+      "wander": {
+        "mode": "Scripted",
+        "delay": 0,
+        "initial_movestring": ""
+      },
+      "activation_script": "",
+      "animation": "Idle Down"
+    },
+    {
+      "name": "LAB RAT GANG 3",
+      "filename": "chrs/monsters/Dorkupine Lab.json",
+      "location": {
+        "tx": 0,
+        "ty": 0,
+        "layer": "Entity Layer (E)",
+        "px": 0,
+        "py": 0
+      },
+      "facing": "Right",
+      "pays_attention_to_obstructions": true,
+      "is_an_obstruction": true,
+      "autofaces": true,
+      "speed": 100,
+      "wander": {
+        "mode": "Scripted",
+        "delay": 0,
+        "initial_movestring": ""
+      },
+      "activation_script": "",
+      "animation": "Idle Down"
+    },
+    {
+      "name": "IHR Bunny",
+      "filename": "chrs/monsters/Rabbit.json",
+      "location": {
+        "tx": 132,
+        "ty": 7,
+        "layer": "Entity Layer (E)",
+        "px": 2112,
+        "py": 112
+      },
+      "facing": "Down",
+      "pays_attention_to_obstructions": true,
+      "is_an_obstruction": true,
+      "autofaces": true,
+      "speed": 100,
+      "wander": {
+        "mode": "Scripted",
+        "delay": 0,
+        "initial_movestring": ""
+      },
+      "activation_script": "",
+      "animation": "Idle Down"
+    },
+    {
+      "name": "Elevator Tube FG",
+      "filename": "maps/components/evil_lab/Tube Front.json",
+      "facing": "Down",
+      "pays_attention_to_obstructions": false,
+      "is_an_obstruction": false,
+      "autofaces": false,
+      "speed": 100,
+      "wander": {
+        "mode": "Scripted",
+        "delay": 0,
+        "initial_movestring": ""
+      },
+      "activation_script": "",
+      "animation": "Tall Closed",
+      "location": {
+        "layer": "Entity Layer (E)",
+        "tx": 112,
+        "ty": 9,
+        "px": 1792,
+        "py": 144
+      },
+      "MAPED_USEDEFAULT": false,
+      "INDEX": 8
+    },
+    {
+      "name": "Elevator Tube BG",
+      "filename": "maps/components/evil_lab/Tube Rear.json",
+      "facing": "Down",
+      "pays_attention_to_obstructions": false,
+      "is_an_obstruction": false,
+      "autofaces": false,
+      "speed": 100,
+      "wander": {
+        "mode": "Scripted",
+        "delay": 0,
+        "initial_movestring": ""
+      },
+      "activation_script": "",
+      "animation": "Tall Closed",
+      "location": {
+        "layer": "Entity Layer (E)",
+        "tx": 112,
+        "ty": 9,
+        "px": 1792,
+        "py": 144
+      },
+      "MAPED_USEDEFAULT": false,
+      "INDEX": 9
+    }
+  ],
+  "tallentitylayer": "Fishing",
+  "MAPED_ENTLAYER_VISIBLE": true,
+  "MAPED_ZONELAYER_VISIBLE": false,
+  "MAPED_OBSLAYER_VISIBLE": false
+}

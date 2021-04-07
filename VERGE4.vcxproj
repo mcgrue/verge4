@@ -13,9 +13,14 @@
   <ItemGroup>
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\sdl_setup.cpp" />
+    <ClCompile Include="source\tilemap.cpp" />
+    <ClCompile Include="source\tileset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\sdl_setup.h" />
+    <ClInclude Include="source\tilemap.h" />
+    <ClInclude Include="source\tileset.h" />
+    <ClInclude Include="source\util\util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -57,6 +62,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>.;third_party\SDL2_image-2.0.5\include;third_party\SDL2-2.0.14\include;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/std:c++17 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -72,6 +78,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>.;third_party\SDL2_image-2.0.5\include;third_party\SDL2-2.0.14\include;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/std:c++17 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

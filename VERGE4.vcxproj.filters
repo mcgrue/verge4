@@ -4,6 +4,9 @@
     <Filter Include="source">
       <UniqueIdentifier>{91f9387c-5ae2-412a-a34b-dad0f9832fc9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\util">
+      <UniqueIdentifier>{a98fcdb9-9dd9-405d-ba81-e557a1d5dc81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -12,10 +15,25 @@
     <ClCompile Include="source\sdl_setup.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\tilemap.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tileset.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\sdl_setup.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tilemap.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tileset.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\util\util.h">
+      <Filter>source\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

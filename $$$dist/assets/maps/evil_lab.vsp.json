@@ -1,0 +1,900 @@
+{
+   "original_filename":"evil_lab_vsp.vsp",
+   "source_image":"../img/evil_lab.tiles.png",
+   "tilesize":{
+      "width":16,
+      "height":16
+   },
+   "tiles_per_row":20,
+   "animations":[
+      {
+         "name":"",
+         "start":0,
+         "end":0,
+         "delay":0,
+         "mode":0
+      },
+      {
+         "name":"Red Teleport",
+         "start":56,
+         "end":59,
+         "delay":10,
+         "mode":3
+      },
+      {
+         "name":"Green Teleport",
+         "start":76,
+         "end":79,
+         "delay":10,
+         "mode":3
+      },
+      {
+         "name":"Blue Teleport",
+         "start":96,
+         "end":99,
+         "delay":10,
+         "mode":3
+      },
+      {
+         "name":"Left Screen",
+         "start":66,
+         "end":69,
+         "delay":32,
+         "mode":2
+      },
+      {
+         "name":"Right Screen",
+         "start":86,
+         "end":89,
+         "delay":32,
+         "mode":2
+      },
+      {
+         "name":"Redfloor Left",
+         "start":160,
+         "end":161,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Redfloor right",
+         "start":180,
+         "end":181,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Greenfloor Left",
+         "start":200,
+         "end":201,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Greenfloor right",
+         "start":220,
+         "end":221,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Marching Ants",
+         "start":82,
+         "end":85,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Greenfloor Left 2",
+         "start":202,
+         "end":203,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Greenfloor Right 2",
+         "start":222,
+         "end":223,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Redfloor Left 3",
+         "start":164,
+         "end":165,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Redfloor Right 3",
+         "start":184,
+         "end":185,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Greenfoor Left 3",
+         "start":204,
+         "end":205,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Greenfloor Right 3",
+         "start":224,
+         "end":225,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"bunni",
+         "start":216,
+         "end":217,
+         "delay":25,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_left_1",
+         "start":1140,
+         "end":1143,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_left_2",
+         "start":1144,
+         "end":1147,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_left_3",
+         "start":1148,
+         "end":1151,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_left_4",
+         "start":1160,
+         "end":1163,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_left_5",
+         "start":1164,
+         "end":1167,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_left_6",
+         "start":1168,
+         "end":1171,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_left_7",
+         "start":1180,
+         "end":1183,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_left_8",
+         "start":1184,
+         "end":1187,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_left_9",
+         "start":1188,
+         "end":1191,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_right_1",
+         "start":1200,
+         "end":1203,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_right_2",
+         "start":1204,
+         "end":1207,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_right_3",
+         "start":1208,
+         "end":1211,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_right_4",
+         "start":1220,
+         "end":1223,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_right_5",
+         "start":1224,
+         "end":1227,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_right_6",
+         "start":1228,
+         "end":1231,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_right_7",
+         "start":1240,
+         "end":1243,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_right_8",
+         "start":1244,
+         "end":1247,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"conveyorbelt_right_9",
+         "start":1248,
+         "end":1251,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Machinery V",
+         "start":434,
+         "end":436,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Machinery H",
+         "start":437,
+         "end":439,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Machinery Far A",
+         "start":454,
+         "end":455,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Machinery Far B",
+         "start":456,
+         "end":457,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Machinery Far C",
+         "start":458,
+         "end":459,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Ants Blue",
+         "start":476,
+         "end":479,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Ants Green",
+         "start":496,
+         "end":499,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Ants Yellow",
+         "start":516,
+         "end":519,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Ants Orange",
+         "start":536,
+         "end":539,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Ants Red",
+         "start":556,
+         "end":559,
+         "delay":20,
+         "mode":0
+      },
+      {
+         "name":"Ants Alert",
+         "start":576,
+         "end":579,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Uranium Chair Upright Top",
+         "start":472,
+         "end":475,
+         "delay":30,
+         "mode":0
+      },
+      {
+         "name":"Uranium Chair Upright Bottom",
+         "start":492,
+         "end":495,
+         "delay":30,
+         "mode":0
+      },
+      {
+         "name":"Uranium Chair Leaning Top",
+         "start":512,
+         "end":515,
+         "delay":30,
+         "mode":0
+      },
+      {
+         "name":"Uranium Chair Leaning Bottom",
+         "start":532,
+         "end":535,
+         "delay":30,
+         "mode":0
+      },
+      {
+         "name":"Uranium Chair Office Top",
+         "start":552,
+         "end":555,
+         "delay":30,
+         "mode":0
+      },
+      {
+         "name":"Uranium Chair Office Bottom",
+         "start":572,
+         "end":575,
+         "delay":30,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Blue V",
+         "start":506,
+         "end":511,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Blue H",
+         "start":526,
+         "end":531,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Green V",
+         "start":546,
+         "end":551,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Green H",
+         "start":566,
+         "end":571,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Yellow V",
+         "start":586,
+         "end":591,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Yellow H",
+         "start":606,
+         "end":611,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Orange V",
+         "start":626,
+         "end":631,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Orange H",
+         "start":646,
+         "end":651,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Red V",
+         "start":666,
+         "end":671,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Red H",
+         "start":686,
+         "end":691,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Purple V",
+         "start":706,
+         "end":711,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Purple H",
+         "start":726,
+         "end":731,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Evil V",
+         "start":746,
+         "end":751,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Bubbles Evil H",
+         "start":766,
+         "end":771,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Up Blue",
+         "start":500,
+         "end":501,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Up Green",
+         "start":540,
+         "end":541,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Up Yellow",
+         "start":580,
+         "end":581,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Up Orange",
+         "start":620,
+         "end":621,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Up Red",
+         "start":660,
+         "end":661,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Up Purple",
+         "start":700,
+         "end":701,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Up Evil",
+         "start":740,
+         "end":741,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Down Blue",
+         "start":520,
+         "end":521,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Down Green",
+         "start":560,
+         "end":561,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Down Yellow",
+         "start":600,
+         "end":601,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Down Orange",
+         "start":640,
+         "end":641,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Down Red",
+         "start":680,
+         "end":681,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Down Purple",
+         "start":720,
+         "end":721,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Down Evil",
+         "start":760,
+         "end":761,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Left Blue",
+         "start":502,
+         "end":503,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Left Green",
+         "start":542,
+         "end":543,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Left Yellow",
+         "start":582,
+         "end":583,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Left Orange",
+         "start":622,
+         "end":623,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Left Red",
+         "start":662,
+         "end":663,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Left Purple",
+         "start":702,
+         "end":703,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Left Evil",
+         "start":742,
+         "end":743,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Right Blue",
+         "start":522,
+         "end":523,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Right Green",
+         "start":562,
+         "end":563,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Right Yellow",
+         "start":602,
+         "end":603,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Right Orange",
+         "start":642,
+         "end":643,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Right Red",
+         "start":682,
+         "end":683,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Right Purple",
+         "start":722,
+         "end":723,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Pipe Lamp Right Evil",
+         "start":762,
+         "end":763,
+         "delay":40,
+         "mode":0
+      },
+      {
+         "name":"Mini Volcano A",
+         "start":306,
+         "end":307,
+         "delay":50,
+         "mode":0
+      },
+      {
+         "name":"Mini Volcano B",
+         "start":326,
+         "end":327,
+         "delay":50,
+         "mode":0
+      },
+      {
+         "name":"Big Volcano TopLeft",
+         "start":308,
+         "end":311,
+         "delay":50,
+         "mode":0
+      },
+      {
+         "name":"Big Volcano TopMid",
+         "start":312,
+         "end":315,
+         "delay":50,
+         "mode":0
+      },
+      {
+         "name":"Big Volcano TopRight",
+         "start":316,
+         "end":319,
+         "delay":50,
+         "mode":0
+      },
+      {
+         "name":"Big Volcano BotLeft",
+         "start":328,
+         "end":331,
+         "delay":50,
+         "mode":0
+      },
+      {
+         "name":"Big Volcano BotMid",
+         "start":332,
+         "end":335,
+         "delay":50,
+         "mode":0
+      },
+      {
+         "name":"Big Volcano BotRight",
+         "start":336,
+         "end":339,
+         "delay":50,
+         "mode":0
+      },
+      {
+         "name":"Fan UL",
+         "start":430,
+         "end":431,
+         "delay":5,
+         "mode":0
+      },
+      {
+         "name":"Fan UR",
+         "start":432,
+         "end":433,
+         "delay":5,
+         "mode":0
+      },
+      {
+         "name":"Fan DL",
+         "start":450,
+         "end":451,
+         "delay":5,
+         "mode":0
+      },
+      {
+         "name":"Fan DR",
+         "start":452,
+         "end":453,
+         "delay":5,
+         "mode":0
+      },
+      {
+         "name":"BG Conveyor UL",
+         "start":350,
+         "end":351,
+         "delay":15,
+         "mode":0
+      },
+      {
+         "name":"BG Conveyor UR",
+         "start":352,
+         "end":353,
+         "delay":15,
+         "mode":0
+      },
+      {
+         "name":"BG Conveyor DL",
+         "start":370,
+         "end":371,
+         "delay":15,
+         "mode":0
+      },
+      {
+         "name":"BG Conveyor DR",
+         "start":372,
+         "end":373,
+         "delay":15,
+         "mode":0
+      },
+      {
+         "name":"BG Conveyor H",
+         "start":354,
+         "end":355,
+         "delay":15,
+         "mode":0
+      },
+      {
+         "name":"BG Conveyor V",
+         "start":374,
+         "end":375,
+         "delay":15,
+         "mode":0
+      },
+      {
+         "name":"Oscilloscope",
+         "start":827,
+         "end":831,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Oscilloscope Clear",
+         "start":907,
+         "end":911,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Equalizer",
+         "start":847,
+         "end":852,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Equalizer Clear",
+         "start":927,
+         "end":932,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Radar",
+         "start":867,
+         "end":874,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Radar Clear",
+         "start":947,
+         "end":954,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Tape Reel",
+         "start":875,
+         "end":876,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Tape Reel Clear",
+         "start":955,
+         "end":956,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Coffee",
+         "start":887,
+         "end":896,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Coffee Clear",
+         "start":967,
+         "end":976,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Train Platform Lights Red Top",
+         "start":616,
+         "end":619,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Train Platform Lights Red Bottom",
+         "start":636,
+         "end":639,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Train Platform Lights Yellow Top",
+         "start":656,
+         "end":659,
+         "delay":10,
+         "mode":0
+      },
+      {
+         "name":"Train Platform Lights Yellow Bottom",
+         "start":676,
+         "end":679,
+         "delay":10,
+         "mode":0
+      }
+   ]
+}

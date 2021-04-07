@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "sdl_setup.h"
+#include "tileset.h"
 
 using namespace std;
 
@@ -18,9 +19,16 @@ SDL_Event    m_window_event;
 
 Direction    m_direction;
 
+TileSet		 vsp;
+
+SDL_Window* get_game_window()
+{
+	return m_window;
+}
+
 void draw() {
 	SDL_FillRect(m_window_surface, nullptr, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
-	SDL_BlitSurface(m_tileset, nullptr, m_window_surface, &m_map_position);
+	SDL_BlitSurface(vsp.getSourceImage(), nullptr, m_window_surface, &m_map_position);
 	SDL_BlitSurface(m_guy, nullptr, m_window_surface, &m_guy_position);
 	SDL_UpdateWindowSurface(m_window);
 }
@@ -52,33 +60,6 @@ void update(double delta_time) {
 	m_guy_position.y = (int)m_image_y;
 }
 
-SDL_Surface* load_surface(std::string path)
-{
-	//The final optimized image
-	SDL_Surface* optimizedSurface = nullptr;
-
-	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if (loadedSurface == nullptr)
-	{
-		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
-	}
-	else
-	{
-		//Convert surface to screen format
-		optimizedSurface = SDL_ConvertSurface(loadedSurface, SDL_GetWindowSurface(m_window)->format, 0);
-		if (optimizedSurface == nullptr)
-		{
-			printf("Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-		}
-
-		//Get rid of old loaded surface
-		SDL_FreeSurface(loadedSurface);
-	}
-
-	return optimizedSurface;
-}
-
 void init() {
 	m_window = SDL_CreateWindow("SDL2 Window",
 		SDL_WINDOWPOS_CENTERED,
@@ -104,6 +85,8 @@ void init() {
 
 	m_guy = load_surface("assets/img/stick_figure.bmp");
 	m_tileset = load_surface("assets/img/evil_lab.tiles.png");
+
+	vsp = TileSet("assets/maps/evil_lab.vsp.json");
 
 	m_guy_position.x = 0;
 	m_guy_position.y = 0;
