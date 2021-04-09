@@ -125,3 +125,25 @@ inline std::string get_path_relative(const std::string& base, const std::string&
 {
 	return get_path_relative(fs::path(base), fs::path(rel));
 }
+
+
+inline int getFlatIdx(int x, int y, int numColumns) {
+	return numColumns * y + x;
+};
+
+// extracts the first dimension of a flat-indexed 2 dimensionally array given
+// the second dimension's maximum value and the value of the flat index you
+// wish to extract the first dimension's value from.
+//
+inline int getXfromFlat(int idx, int numColumns) {
+	return idx % numColumns;
+};
+
+// extracts the second dimension of a flat-indexed 2 dimensionally array given
+// the second dimension's maximum value and the value of the flat index you
+// wish to extract the second dimension's value from.
+//
+inline int getYfromFlat( int idx, int numColumns) {
+	const int flatval = idx - getXfromFlat(idx, numColumns);
+	return flatval / numColumns;
+};

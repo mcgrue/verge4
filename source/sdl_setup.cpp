@@ -1,9 +1,11 @@
 #include <SDL.h>
-#include <SDL_image.h>
 #include <iostream>
 
 #include "sdl_setup.h"
 #include "tileset.h"
+#include "tilemap.h"
+
+#include "util/util.h"
 
 using namespace std;
 
@@ -21,6 +23,7 @@ SDL_Renderer* m_renderer;
 Direction    m_direction;
 
 TileSet		 vsp;
+TileMap		 level;
 
 SDL_Window* get_game_window()
 {
@@ -35,15 +38,19 @@ SDL_Renderer* get_game_renderer()
 void draw() {
 	SDL_FillRect(m_window_surface, nullptr, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
 	//SDL_BlitSurface(vsp.getSourceImage(), nullptr, m_window_surface, &m_map_position);
+
+	auto vsp1 = level.tilesets["default"];
+	auto vsp2 = level.tilesets["obstructions"];
 	
-	vsp.drawTile(m_window_surface, 1, { { 0, 0 } });
-	vsp.drawTile(m_window_surface, 0, { { 0, 0 } });
-	vsp.drawTile(m_window_surface, 2, { { 16, 16 } });
-	vsp.drawTile(m_window_surface, 0, { { 16, 16 } });
-	vsp.drawTile(m_window_surface, 3, { { 32, 32 } });
-	vsp.drawTile(m_window_surface, 0, { { 32, 32 } });
-	vsp.drawTile(m_window_surface, 4, { { 48, 48 } });
-	vsp.drawTile(m_window_surface, 0, { { 48, 48 } });
+	vsp1->drawTile(m_window_surface, 1, { { 0, 0 } });
+	vsp1->drawTile(m_window_surface, 2, { { 16, 16 } });
+	vsp1->drawTile(m_window_surface, 3, { { 32, 32 } });
+	vsp1->drawTile(m_window_surface, 4, { { 48, 48 } });
+
+	vsp2->drawTile(m_window_surface, 1, { { 0, 16 } });
+	vsp2->drawTile(m_window_surface, 2, { { 0, 32 } });
+	vsp2->drawTile(m_window_surface, 3, { { 0, 48 } });
+	vsp2->drawTile(m_window_surface, 4, { { 0, 64 } });
 
 	SDL_BlitSurface(m_guy, nullptr, m_window_surface, &m_guy_position);
 	SDL_UpdateWindowSurface(m_window);
@@ -106,9 +113,9 @@ void init() {
 	}
 
 	m_guy = load_surface("assets/img/stick_figure.bmp");
-	m_tileset = load_surface("assets/img/evil_lab.tiles.png");
+	// m_tileset = load_surface("assets/img/evil_lab.tiles.png");
 
-	vsp = TileSet("assets/maps/evil_lab.vsp.json");
+	level = TileMap("assets/maps/evil_lab_f1.map.json");
 
 	m_guy_position.x = 0;
 	m_guy_position.y = 0;
@@ -144,19 +151,15 @@ void update_input(bool& keep_window_open)
 				Uint8 const *keys = SDL_GetKeyboardState(nullptr);
 
 				if (keys[SDL_SCANCODE_W] == 1 || keys[SDL_SCANCODE_UP] == 1) {
-					cout << "up" << endl;
 					m_direction = Direction::UP;
 				} 
 				else if (keys[SDL_SCANCODE_S] == 1 || keys[SDL_SCANCODE_DOWN] == 1) {
-					cout << "down" << endl;
 					m_direction = Direction::DOWN;
 				} 
 				else if (keys[SDL_SCANCODE_A] == 1 || keys[SDL_SCANCODE_LEFT] == 1) {
-					cout << "left" << endl;
 					m_direction = Direction::LEFT;
 				} 
 				else if (keys[SDL_SCANCODE_D] == 1 || keys[SDL_SCANCODE_RIGHT] == 1) {
-					cout << "rigth" << endl;
 					m_direction = Direction::RIGHT;
 				}
 			}

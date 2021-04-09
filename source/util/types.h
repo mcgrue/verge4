@@ -19,4 +19,14 @@ union vec2i {
 	int m[2];
 };
 
+union vec2f {
+	struct {
+		float x, y;
+	};
+	struct {
+		float w, h;
+	};
+	float m[2];
+};
+
 typedef vec2i pixelcoordinates_t;
