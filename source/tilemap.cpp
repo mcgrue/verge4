@@ -17,7 +17,7 @@ TileMap::TileMap(const string& inputFile)
 	/// load the tilesets first, so we can let the layers choose the reference it needs during instance without keeping a ptr to the parent map.
 	const std::map<string, string> vsps = defJson["vsp"];
 	for (const auto&[key, value] : vsps) {
-		std::cout << key << " = " << value << "; ";
+		LOG( key << " = " << value << "; " );
 
 		auto tileset = new TileSet(get_path_relative(inputFile, value));
 
@@ -26,7 +26,7 @@ TileMap::TileMap(const string& inputFile)
 	
 	if( layersArray.size() != layersBulkArray.size() )
 	{
-		cout << "layersCount (" << layersArray.size() << ") did not match (" << layersBulkArray.size() << ")";
+		LOG( "layersCount (" << layersArray.size() << ") did not match (" << layersBulkArray.size() << ")" );
 		exit(2);
 	}
 	else
@@ -52,7 +52,7 @@ TileMap::TileMap(const string& inputFile)
 		}
 		else
 		{
-			cout << "skipping setting layer " << item << " for now..." << endl;
+			LOG("skipping setting layer " << item << " for now...");
 		}
 	}
 
@@ -62,9 +62,12 @@ TileMap::TileMap(const string& inputFile)
 
 void TileMap::draw( SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect )
 {
+	clock_t beginFrame = clock();
 	for( auto curLayer: this->orderedLayers )
 	{
 		curLayer->draw(draw_area, target, targetRect);
-	}	
+	}
+	clock_t endFrame = clock();
+	LOG( "full map render took " << endFrame - beginFrame << "ms" );
 }
 

@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <iostream>
+#include <sstream>
 
 #include "sdl_setup.h"
 #include "tileset.h"
@@ -72,7 +73,7 @@ void update(double delta_time) {
 }
 
 void init() {
-	m_window = SDL_CreateWindow("SDL2 Window",
+	m_window = SDL_CreateWindow("VERGE 4: The World's Most Extraneous 2d C++ Game Engine",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		680, 480,
@@ -80,14 +81,13 @@ void init() {
 
 	if (!m_window)
 	{
-		std::cout << "Failed to create window\n";
-		std::cout << "SDL2 Error: " << SDL_GetError() << "\n";
+		LOG("Failed to create window \n SDL2 Error: " << SDL_GetError() );
 		return;
 	}
 
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (m_renderer == nullptr) {
-		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+		LOG( "SDL_CreateRenderer Error: " << SDL_GetError() );
 		return;
 	}
 
@@ -95,11 +95,12 @@ void init() {
 
 	if (!m_window_surface)
 	{
-		std::cout << "Failed to get window's surface\n";
-		std::cout << "SDL2 Error: " << SDL_GetError() << "\n";
+		LOG( "Failed to get window's surface \n SDL2 Error: " << SDL_GetError() );
 		return;
 	}
 
+	SDL_SetWindowTitle(m_window, "Loading map...");
+	
 	m_guy = load_surface("assets/img/stick_figure.bmp");
 	// m_tileset = load_surface("assets/img/evil_lab.tiles.png");
 
@@ -160,12 +161,45 @@ void update_input(bool& keep_window_open)
 }
 
 void loop() {
+	clock_t deltaTime = 0;
+	unsigned int frames = 0;
+	double  frameRate = 30;
+	double frameTime = 1;
+	double  averageFrameTimeMilliseconds = 33.333;
+	const bool vsync = SDL_GetWindowFlags(m_window) & SDL_RENDERER_PRESENTVSYNC;
+		
 	bool keep_window_open = true;
 	while (keep_window_open)
 	{
+		const clock_t beginFrame = clock();
+
 		update_input(keep_window_open);
 
-		update(1.0 / 60.0);
+		update(frameTime / 60.0);
 		draw();
+
+		const clock_t endFrame = clock();
+		LOG( "full update loop took " << endFrame - beginFrame << "ms" );
+
+		frameTime = endFrame - beginFrame;
+		deltaTime += (int)frameTime;
+		frames++;
+		
+		if (clockToMilliseconds(deltaTime) > 1000.0) { //every second
+			frameRate = (double)frames*0.5 + frameRate * 0.5; //more stable
+			frames = 0;
+			deltaTime -= CLOCKS_PER_SEC;
+			averageFrameTimeMilliseconds = 1000.0 / (frameRate == 0 ? 0.001 : frameRate);
+
+			if (vsync)
+				LOG( "FrameTime was:" << averageFrameTimeMilliseconds );
+			else
+				LOG( "CPU time was:" << averageFrameTimeMilliseconds );
+
+			stringstream title;
+			title << frameRate << " FPS";
+			
+			SDL_SetWindowTitle(m_window, title.str().c_str());
+		}
 	}
 }

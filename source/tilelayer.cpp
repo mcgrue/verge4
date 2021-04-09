@@ -1,7 +1,9 @@
-#include "tilelayer.h"
-#include "util/util.h"
+#include <iostream>
 
+#include "tilelayer.h"
 #include "tileset.h"
+
+#include "util/util.h"
 
 using namespace std;
 
@@ -38,7 +40,8 @@ void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRec
 	{
 		return;
 	}
-
+	clock_t beginFrame = clock();
+	
 	// does C++ optimize these chain lookups or should I memoize locally the "this->tileSet->tilesize.width" stuff whenever the layer's tileset changes to save a bunch of loopups every frame?
 	
 	// first calculate how many tiles we'll be iterating over based on this layer's tilesize
@@ -72,10 +75,18 @@ void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRec
 		for(auto x=0; x<tilesWide; x++)
 		{
 			const int tileIdx = this->tileData[{originTX + x, originTY + y}];
+			if(tileIdx == 0)
+			{
+				continue;
+			}
+
 			int drawX = x * this->tileSet->tilesize.width + renderOffsetX;
 			int drawY = y * this->tileSet->tilesize.height + renderOffsetY;
 			
 			tileSet->drawTile(target, tileIdx, { { drawX, drawY } });
 		}
 	}
+
+	clock_t endFrame = clock();
+	LOG("render of layer " << this->name <<" took " << endFrame - beginFrame << "ms" );
 }

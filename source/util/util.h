@@ -3,7 +3,7 @@
 #include <string>
 #include <filesystem>
 #include <fstream>
-#include <string>
+#include <sstream>
 #include <SDL_image.h>
 #include <cerrno>
 #include "third_party/JSON/json.hpp"
@@ -147,3 +147,20 @@ inline int getYfromFlat( int idx, int numColumns) {
 	const int flatval = idx - getXfromFlat(idx, numColumns);
 	return flatval / numColumns;
 };
+
+inline double clockToMilliseconds(clock_t ticks) {
+	// units / (units / time) = > time(seconds) * 1000 = milliseconds
+	return (ticks / (double)CLOCKS_PER_SEC)*1000.0;
+}
+
+inline int set_window_title(string str) {
+	SDL_SetWindowTitle(get_game_window(), str.c_str());
+};
+
+#define LOG(f) \
+    do { /*std::stringstream s; \
+         s << f; \
+         cout << s.str() << endl; \
+    */} while (0)
+
+// log(__FILE__, __LINE__, __FUNCTION__, s);
