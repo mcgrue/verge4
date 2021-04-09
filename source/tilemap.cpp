@@ -68,6 +68,7 @@ TileMap::TileMap(const string& inputFile)
 void TileMap::draw( SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect )
 {
 	if (
+		engine_options.naive_caching &&
 		draw_area.x == this->cachedLocation.x &&
 		draw_area.y == this->cachedLocation.y &&
 		draw_area.h == this->cachedLocation.h &&
@@ -85,8 +86,10 @@ void TileMap::draw( SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect
 	}
 	clock_t endFrame = clock();
 	LOG( "full map render took " << endFrame - beginFrame << "ms" );
-	
-	cache(draw_area, target, targetRect);	
+
+	if(engine_options.naive_caching) {
+		cache(draw_area, target, targetRect);
+	}
 }
 
 

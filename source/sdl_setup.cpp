@@ -39,7 +39,8 @@ SDL_Renderer* get_game_renderer()
 void draw() {
 	SDL_FillRect(m_window_surface, nullptr, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
 
-	level.draw({ 0,0,640,480 }, m_window_surface, { 0,0,640,480 });
+	// level.draw({ 0,0,640,480 }, m_window_surface, { 0,0,640,480 });
+	level.draw({ (int)m_guy_position.x,(int)m_guy_position.y,640,480 }, m_window_surface, { 0,0,640,480 });
 	
 	SDL_BlitSurface(m_guy, nullptr, m_window_surface, &m_guy_position);
 	SDL_UpdateWindowSurface(m_window);
