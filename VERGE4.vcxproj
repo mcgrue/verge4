@@ -13,11 +13,13 @@
   <ItemGroup>
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\sdl_setup.cpp" />
+    <ClCompile Include="source\tilelayer.cpp" />
     <ClCompile Include="source\tilemap.cpp" />
     <ClCompile Include="source\tileset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\sdl_setup.h" />
+    <ClInclude Include="source\tilelayer.h" />
     <ClInclude Include="source\tilemap.h" />
     <ClInclude Include="source\tileset.h" />
     <ClInclude Include="source\util\types.h" />

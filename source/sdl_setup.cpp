@@ -37,21 +37,9 @@ SDL_Renderer* get_game_renderer()
 
 void draw() {
 	SDL_FillRect(m_window_surface, nullptr, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
-	//SDL_BlitSurface(vsp.getSourceImage(), nullptr, m_window_surface, &m_map_position);
 
-	auto vsp1 = level.tilesets["default"];
-	auto vsp2 = level.tilesets["obstructions"];
+	level.draw({ 0,0,640,480 }, m_window_surface, { 0,0,640,480 });
 	
-	vsp1->drawTile(m_window_surface, 1, { { 0, 0 } });
-	vsp1->drawTile(m_window_surface, 2, { { 16, 16 } });
-	vsp1->drawTile(m_window_surface, 3, { { 32, 32 } });
-	vsp1->drawTile(m_window_surface, 4, { { 48, 48 } });
-
-	vsp2->drawTile(m_window_surface, 1, { { 0, 16 } });
-	vsp2->drawTile(m_window_surface, 2, { { 0, 32 } });
-	vsp2->drawTile(m_window_surface, 3, { { 0, 48 } });
-	vsp2->drawTile(m_window_surface, 4, { { 0, 64 } });
-
 	SDL_BlitSurface(m_guy, nullptr, m_window_surface, &m_guy_position);
 	SDL_UpdateWindowSurface(m_window);
 }

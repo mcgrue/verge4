@@ -21,6 +21,9 @@
     <ClCompile Include="source\tileset.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\tilelayer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\sdl_setup.h">
@@ -37,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="source\util\types.h">
       <Filter>source\util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tilelayer.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

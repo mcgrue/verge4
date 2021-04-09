@@ -8,8 +8,15 @@
 using namespace std;
 using namespace nlohmann;
 
+/// fwd decl
+class TileMap;
+class TileLayer;
+
 class TileSet {
 
+	friend TileLayer;
+	//friend TileMap;
+	
 public:
 	TileSet();
 	TileSet(const string& inputFile); // simple constructor

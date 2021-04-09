@@ -1,0 +1,6 @@
+{
+  "path_to_chrs" : "../../",
+  "checkerColorA": [0.2,0.2,0.2,1],
+  "checkerColorB": [0.4,0.4,0.4,1],
+  "autoSelectEntityAfterEdit": true
+}
