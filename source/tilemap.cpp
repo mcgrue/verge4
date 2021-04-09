@@ -10,6 +10,10 @@ using namespace std;
 TileMap::TileMap(const string& inputFile)
 {
 	const auto defJson = get_json_from_file(inputFile);
+
+
+	set_window_title(defJson["name"]);
+	
 	const auto dataFile = inputFile.substr(0, inputFile.length() - 5) + ".data.json";
 	const auto bulkDataJson = get_json_from_file(dataFile);
 
@@ -32,9 +36,11 @@ TileMap::TileMap(const string& inputFile)
 		exit(2);
 	}
 	else
-	{
+	{		
 		for( int i=0; i< layersArray.size(); i++ )
 		{
+			set_window_title(layersArray[i]["name"]);
+			
 			auto tileLayer = new TileLayer(layersArray[i], layersBulkArray[i], this->tilesets);
 			indexedLayers.push_back(tileLayer);
 		}

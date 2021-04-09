@@ -153,7 +153,7 @@ inline double clockToMilliseconds(clock_t ticks) {
 	return (ticks / (double)CLOCKS_PER_SEC)*1000.0;
 }
 
-inline int set_window_title(string str) {
+inline void set_window_title(string str) {
 	SDL_SetWindowTitle(get_game_window(), str.c_str());
 };
 
