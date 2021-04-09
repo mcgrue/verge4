@@ -35,4 +35,5 @@ protected:
 	TileSet* tileSet;
 	
 	std::map<std::pair<int, int>, int> tileData;
+	std::map<int, bool> hasY;
 };

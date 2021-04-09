@@ -27,6 +27,7 @@ TileLayer::TileLayer(const basic_json<>& json, const basic_json<>& tileDataJson,
 			x = getXfromFlat(idx, this->dimensions.x);
 			y = getYfromFlat(idx, this->dimensions.x);
 			this->tileData[{x, y}] = entry;
+			this->hasY[y] = true;
 		}
 
 		idx++;
@@ -72,6 +73,8 @@ void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRec
 	/// now we can draw!  Remember, Y goes on the outside loop you you draw things left to right and top down!
 	for(auto y=0; y<tilesTall; y++)
 	{
+		if (!this->hasY[y]) continue; // skip the x's if this layer has nothing in the whole y
+		
 		for(auto x=0; x<tilesWide; x++)
 		{
 			const int tileIdx = this->tileData[{originTX + x, originTY + y}];

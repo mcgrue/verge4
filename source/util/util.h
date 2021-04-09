@@ -158,9 +158,9 @@ inline int set_window_title(string str) {
 };
 
 #define LOG(f) \
-    do { /*std::stringstream s; \
+    do { std::stringstream s; \
          s << f; \
          cout << s.str() << endl; \
-    */} while (0)
+    } while (0)
 
 // log(__FILE__, __LINE__, __FUNCTION__, s);

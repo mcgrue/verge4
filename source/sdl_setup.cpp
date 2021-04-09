@@ -160,6 +160,26 @@ void update_input(bool& keep_window_open)
 	}
 }
 
+void update_fps_counter(clock_t& deltaTime, unsigned& frames, double frameRate, double averageFrameTimeMilliseconds, const bool vsync)
+{
+	if (clockToMilliseconds(deltaTime) > 1000.0) { //every second
+		frameRate = (double)frames*0.5 + frameRate * 0.5; //more stable
+		frames = 0;
+		deltaTime -= CLOCKS_PER_SEC;
+		averageFrameTimeMilliseconds = 1000.0 / (frameRate == 0 ? 0.001 : frameRate);
+
+		if (vsync)
+			LOG( "FrameTime was:" << averageFrameTimeMilliseconds );
+		else
+			LOG( "CPU time was:" << averageFrameTimeMilliseconds );
+
+		stringstream title;
+		title << frameRate << " FPS";
+			
+		SDL_SetWindowTitle(m_window, title.str().c_str());
+	}
+}
+
 void loop() {
 	clock_t deltaTime = 0;
 	unsigned int frames = 0;
@@ -185,21 +205,6 @@ void loop() {
 		deltaTime += (int)frameTime;
 		frames++;
 		
-		if (clockToMilliseconds(deltaTime) > 1000.0) { //every second
-			frameRate = (double)frames*0.5 + frameRate * 0.5; //more stable
-			frames = 0;
-			deltaTime -= CLOCKS_PER_SEC;
-			averageFrameTimeMilliseconds = 1000.0 / (frameRate == 0 ? 0.001 : frameRate);
-
-			if (vsync)
-				LOG( "FrameTime was:" << averageFrameTimeMilliseconds );
-			else
-				LOG( "CPU time was:" << averageFrameTimeMilliseconds );
-
-			stringstream title;
-			title << frameRate << " FPS";
-			
-			SDL_SetWindowTitle(m_window, title.str().c_str());
-		}
+		update_fps_counter(deltaTime, frames, frameRate, averageFrameTimeMilliseconds, vsync);
 	}
 }

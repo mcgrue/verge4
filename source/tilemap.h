@@ -20,10 +20,14 @@ public:
 	std::vector<TileLayer*> indexedLayers;
 
 	void draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect);
+	void cache(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect);
 
 private:
 	string pathToJSON;
 	nlohmann::basic_json<> data;
 	nlohmann::basic_json<> renderOrder;
 	std::list<TileLayer*> orderedLayers;
+
+	SDL_Rect cachedLocation;
+	SDL_Surface* cachedBuffer = nullptr;
 };

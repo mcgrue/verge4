@@ -1,6 +1,8 @@
 using namespace std;
 
+#include <sdl.h>
 #include <iostream>
+
 #include "tilemap.h"
 #include "util/util.h"
 
@@ -55,13 +57,21 @@ TileMap::TileMap(const string& inputFile)
 			LOG("skipping setting layer " << item << " for now...");
 		}
 	}
-
-	/*std::string blah = source_image;	
-	const auto pathToTilesetImage = get_path_relative(inputFile, blah);*/
 }
 
 void TileMap::draw( SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect )
 {
+	if (
+		draw_area.x == this->cachedLocation.x &&
+		draw_area.y == this->cachedLocation.y &&
+		draw_area.h == this->cachedLocation.h &&
+		draw_area.w == this->cachedLocation.w 
+	)
+	{
+		SDL_BlitSurface(this->cachedBuffer, nullptr, target, &targetRect);
+		return;
+	}
+	
 	clock_t beginFrame = clock();
 	for( auto curLayer: this->orderedLayers )
 	{
@@ -69,5 +79,42 @@ void TileMap::draw( SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect
 	}
 	clock_t endFrame = clock();
 	LOG( "full map render took " << endFrame - beginFrame << "ms" );
+	
+	cache(draw_area, target, targetRect);	
 }
 
+
+void TileMap::cache(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect)
+{
+	this->cachedLocation = draw_area;
+
+	Uint32 rmask, gmask, bmask, amask;
+	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+		int shift = (req_format == STBI_rgb) ? 8 : 0;
+		rmask = 0xff000000 >> shift;
+		gmask = 0x00ff0000 >> shift;
+		bmask = 0x0000ff00 >> shift;
+		amask = 0x000000ff >> shift;
+	#else // little endian, like x86
+		rmask = 0x000000ff;
+		gmask = 0x0000ff00;
+		bmask = 0x00ff0000;
+		amask = 0xff000000;
+	#endif
+
+	int depth = 32;
+	int pitch = 4 * target->w;
+	//
+	//this->cachedBuffer = SDL_CreateRGBSurfaceFrom(
+	//	target->pixels,
+	//	target->w, target->h,
+	//	depth, pitch, 
+	//	rmask, gmask, bmask, amask);
+
+	if(cachedBuffer == nullptr)
+	{
+		this->cachedBuffer = SDL_CreateRGBSurface(0, target->w, target->h, depth, rmask, gmask, bmask, amask);
+	}
+
+	SDL_BlitSurface(target, &targetRect, this->cachedBuffer, &targetRect);
+}
