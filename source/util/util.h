@@ -12,7 +12,7 @@
 struct engine_options
 {
 	bool never_render_tile_0 = true;
-	bool naive_caching = false;
+	bool naive_caching = true;
 };
 
 inline engine_options engine_options;
@@ -66,8 +66,15 @@ inline SDL_Surface* load_surface(const std::string& path)
 	}
 	else
 	{
+		if( SDL_SetSurfaceBlendMode(loadedSurface, SDL_BLENDMODE_BLEND) )
+		{
+			printf("Unable to set blendmode on image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+		}
+		
+		auto fmt = SDL_GetWindowSurface(get_game_window())->format;
+		
 		//Convert surface to screen format
-		optimizedSurface = SDL_ConvertSurface(loadedSurface, SDL_GetWindowSurface(get_game_window())->format, 0);
+		optimizedSurface = SDL_ConvertSurface(loadedSurface, fmt, 0);
 		if (optimizedSurface == nullptr)
 		{
 			printf("Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());

@@ -100,6 +100,8 @@ void init() {
 		return;
 	}
 
+	SDL_SetSurfaceBlendMode(m_window_surface, SDL_BLENDMODE_BLEND);
+
 	SDL_SetWindowTitle(m_window, "Loading map...");
 	
 	m_guy = load_surface("assets/img/stick_figure.bmp");
