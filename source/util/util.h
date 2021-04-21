@@ -9,6 +9,7 @@
 #include <cerrno>
 #include "third_party/JSON/json.hpp"
 #include "sdl_setup.h"
+#include "types.h"
 
 struct hex_color {
 	std::byte r;
@@ -24,6 +25,8 @@ struct engine_options
 	hex_color default_background_color = {
 		std::byte{0x80}, std::byte{0x80}, std::byte{0x80}
 	};
+	screen_size_t initial_window_size =  {640, 480};
+	
 };
 
 inline engine_options engine_options;

@@ -38,12 +38,15 @@ SDL_Renderer* get_game_renderer()
 	return m_renderer;
 }
 
+int cur_screen_x = engine_options.initial_window_size.x;
+int cur_screen_y = engine_options.initial_window_size.y;
+
 SDL_Texture* get_current_screen_as_texture() {
 	return SDL_CreateTexture(m_renderer,
 		SDL_PIXELFORMAT_BGRA8888,
 		SDL_TEXTUREACCESS_STREAMING,
-		640,
-		480);
+		cur_screen_x,
+		cur_screen_y);
 }
 
 
@@ -51,13 +54,13 @@ Uint8 cur_bg_r = std::to_integer<Uint8>(engine_options.default_background_color.
 Uint8 cur_bg_g = std::to_integer<Uint8>(engine_options.default_background_color.g);
 Uint8 cur_bg_b = std::to_integer<Uint8>(engine_options.default_background_color.b);
 
-SDL_Rect screen_rect = { 0,0,640,480 };
+SDL_Rect screen_rect = { 0,0,cur_screen_x,cur_screen_y };
 
 void draw() {
 	SDL_SetRenderDrawColor(m_renderer, cur_bg_r, cur_bg_g, cur_bg_b, 1);
 	SDL_RenderFillRect(m_renderer, &screen_rect);
 
-	level.draw(m_renderer, { (int)m_guy_position.x,(int)m_guy_position.y,640,480 },  { 0,0,640,480 });
+	level.draw(m_renderer, { (int)m_guy_position.x,(int)m_guy_position.y,cur_screen_x,cur_screen_y }, screen_rect);
 
 	SDL_RenderCopy(m_renderer, m_guy, &m_guy_rect, &m_guy_position);
 

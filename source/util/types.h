@@ -30,3 +30,4 @@ union vec2f {
 };
 
 typedef vec2i pixelcoordinates_t;
+typedef vec2i screen_size_t;
