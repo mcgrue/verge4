@@ -10,11 +10,20 @@
 #include "third_party/JSON/json.hpp"
 #include "sdl_setup.h"
 
+struct hex_color {
+	std::byte r;
+	std::byte g;
+	std::byte b;
+};
+
 struct engine_options
 {
 	bool never_render_tile_0 = true;
 	bool naive_caching = false;
 	bool pixel_movement_debug = false;
+	hex_color default_background_color = {
+		std::byte{0x80}, std::byte{0x80}, std::byte{0x80}
+	};
 };
 
 inline engine_options engine_options;

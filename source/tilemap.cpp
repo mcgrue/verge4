@@ -128,4 +128,9 @@ void TileMap::cache(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect
 	cout << "(from x,y) " << targetRect.x << "," << targetRect.y << endl;
 	
 	SDL_BlitSurface(target, &targetRect, this->cachedBuffer, &targetRect);
+	//if(SDL_SaveBMP(this->cachedBuffer, "c:/tmp/frame.bmp") != 0)
+	//{
+	//	// Error saving bitmap
+	//	printf("SDL_SaveBMP failed: %s\n", SDL_GetError());
+	//}
 }

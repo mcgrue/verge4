@@ -39,8 +39,14 @@ SDL_Renderer* get_game_renderer()
 	return m_renderer;
 }
 
+
+int cur_bg_r = std::to_integer<int>(engine_options.default_background_color.r);
+int cur_bg_g = std::to_integer<int>(engine_options.default_background_color.g);
+int cur_bg_b = std::to_integer<int>(engine_options.default_background_color.b);
+
 void draw() {
-	SDL_FillRect(m_window_surface, nullptr, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
+	
+	SDL_FillRect(m_window_surface, nullptr, SDL_MapRGB(m_window_surface->format, cur_bg_r, cur_bg_g, cur_bg_b));
 
 	// level.draw({ 0,0,640,480 }, m_window_surface, { 0,0,640,480 });
 	level.draw({ (int)m_guy_position.x,(int)m_guy_position.y,640,480 }, m_window_surface, { 0,0,640,480 });
