@@ -57,14 +57,12 @@ inline basic_json<> get_json_from_file(const std::string& filename)
 
 inline SDL_Surface* load_surface(const std::string& path)
 {
-	//The final optimized image
-	SDL_Surface* optimizedSurface = nullptr;
-
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == nullptr)
 	{
 		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+		return nullptr;
 	}
 	else
 	{
@@ -73,21 +71,9 @@ inline SDL_Surface* load_surface(const std::string& path)
 			printf("Unable to set blendmode on image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
 		}
 		
-		auto fmt = SDL_GetWindowSurface(get_game_window())->format;
-		
-		//Convert surface to screen format
-		optimizedSurface = SDL_ConvertSurface(loadedSurface, fmt, 0);
-		if (optimizedSurface == nullptr)
-		{
-			printf("Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-		}
-
-		//Get rid of old loaded surface
-		SDL_FreeSurface(loadedSurface);
+		return loadedSurface;
 	}
 
-	SDL_SetSurfaceBlendMode(optimizedSurface, SDL_BLENDMODE_BLEND);
-	return optimizedSurface;
 }
 
 inline SDL_Texture* load_texture(const std::string& path)
