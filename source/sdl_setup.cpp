@@ -12,9 +12,12 @@ using namespace std;
 
 SDL_Surface* m_guy;
 SDL_Surface* m_tileset;
-SDL_Rect     m_guy_position, m_map_position;
+
+SDL_Rect     m_guy_previous_position, m_guy_position, m_map_position;
 double       m_image_x;
 double       m_image_y;
+
+bool guy_is_moving = false;
 
 SDL_Window*   m_window;
 SDL_Surface*  m_window_surface;
@@ -46,9 +49,23 @@ void draw() {
 	SDL_UpdateWindowSurface(m_window);
 }
 
+double wait_a_second = 0;
+
 void update(double delta_time) {
 
 	double d = (5 * delta_time);
+
+	if(engine_options.pixel_movement_debug) {
+		wait_a_second += delta_time;
+
+		if (wait_a_second < 10) {
+			// cout << "DED" << wait_a_second << endl;
+			return;
+		}
+
+		wait_a_second = 0;
+		d = 1;
+	}
 	
 	switch (m_direction) {
 		case Direction::NONE:
@@ -68,6 +85,19 @@ void update(double delta_time) {
 		default:
 			break;
 	}
+
+	if( m_guy_previous_position.x != m_guy_position.x || m_guy_previous_position.y != m_guy_position.y )
+	{
+		guy_is_moving = true;
+		m_guy_previous_position.x = m_guy_position.x;
+		m_guy_previous_position.y = m_guy_position.y;
+
+		cout << "GUY MOVED TO " << m_guy_position.x << "," << m_guy_position.y << endl;
+	} else
+	{
+		guy_is_moving = false;
+	}
+	
 
 	m_guy_position.x = (int)m_image_x;
 	m_guy_position.y = (int)m_image_y;
@@ -169,12 +199,14 @@ void update_fps_counter(clock_t& deltaTime, unsigned& frames, double frameRate, 
 		frameRate = (double)frames*0.5 + frameRate * 0.5; //more stable
 		frames = 0;
 		deltaTime -= CLOCKS_PER_SEC;
-		averageFrameTimeMilliseconds = 1000.0 / (frameRate == 0 ? 0.001 : frameRate);
+		// averageFrameTimeMilliseconds = 1000.0 / (frameRate == 0 ? 0.001 : frameRate);
 
+		/*
 		if (vsync)
 			LOG( "FrameTime was:" << averageFrameTimeMilliseconds );
 		else
 			LOG( "CPU time was:" << averageFrameTimeMilliseconds );
+		*/
 
 		stringstream title;
 		title << frameRate << " FPS";
@@ -202,7 +234,7 @@ void loop() {
 		draw();
 
 		const clock_t endFrame = clock();
-		LOG( "full update loop took " << endFrame - beginFrame << "ms" );
+		// LOG( "full update loop took " << endFrame - beginFrame << "ms" );
 
 		frameTime = endFrame - beginFrame;
 		deltaTime += (int)frameTime;

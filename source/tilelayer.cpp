@@ -34,6 +34,7 @@ TileLayer::TileLayer(const basic_json<>& json, const basic_json<>& tileDataJson,
 	}
 }
 
+#define TILE_OVERFLOW 2
 
 void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect)
 {
@@ -48,26 +49,39 @@ void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRec
 	// first calculate how many tiles we'll be iterating over based on this layer's tilesize
 	// (this engine doesnt assume all tilesets are uniform in size!)
 
-	int tilesWide = draw_area.w / this->tileSet->tilesize.width;
-	int tilesTall = draw_area.h / this->tileSet->tilesize.height;
+	int tileWidth = this->tileSet->tilesize.width;
+	int tileHeight = this->tileSet->tilesize.height;
+	
+	int tilesWide = draw_area.w / tileWidth;
+	int tilesTall = draw_area.h / tileHeight;
+	tilesWide += TILE_OVERFLOW;
+	tilesWide += TILE_OVERFLOW;
+	tilesTall += TILE_OVERFLOW;
+	tilesTall += TILE_OVERFLOW;
 
 	// do we have to calc if offset and increment each by 1 if our x/y isnt on a perfect tile border?
 
 	// now calculate the render-target's pixel offset from the perfect tile grid
-	int renderOffsetX = -draw_area.x % this->tileSet->tilesize.width;
-	int renderOffsetY = -draw_area.y % this->tileSet->tilesize.height;
+	int renderOffsetX = -draw_area.x % tileWidth;
+	int renderOffsetY = -draw_area.y % tileHeight;
 	
 	// now calculate the starting tx and ty's we need to draw.
-	int originTX = draw_area.x / this->tileSet->tilesize.width;
+	int originTX = draw_area.x / tileWidth;
+	originTX -= TILE_OVERFLOW;
+	renderOffsetX -= tileWidth * TILE_OVERFLOW;
 	if (renderOffsetX != 0)
 	{
 		originTX--;
+		renderOffsetX -= tileWidth;
 	}
 
-	int originTY = draw_area.y / this->tileSet->tilesize.height;
+	int originTY = draw_area.y / tileHeight;
+	originTY -= TILE_OVERFLOW;
+	renderOffsetY -= tileHeight * TILE_OVERFLOW;
 	if (renderOffsetY != 0)
 	{
 		originTY--;
+		renderOffsetY -= tileHeight;
 	}
 
 	/// now we can draw!  Remember, Y goes on the outside loop you you draw things left to right and top down!
@@ -91,5 +105,5 @@ void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRec
 	}
 
 	clock_t endFrame = clock();
-	LOG("render of layer " << this->name <<" took " << endFrame - beginFrame << "ms" );
+	// LOG("render of layer " << this->name <<" took " << endFrame - beginFrame << "ms" );
 }

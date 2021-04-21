@@ -84,8 +84,12 @@ void TileMap::draw( SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect
 	{
 		curLayer->draw(draw_area, target, targetRect);
 	}
+
+	cout << "Draw Area " << draw_area.x << "," << draw_area.y << "," << draw_area.h << "," << draw_area.w << endl;
+	cout << "Target Rect " << targetRect.x << "," << targetRect.y << "," << targetRect.h << "," << targetRect.w << endl;
+	
 	clock_t endFrame = clock();
-	LOG( "full map render took " << endFrame - beginFrame << "ms" );
+	// LOG( "full map render took " << endFrame - beginFrame << "ms" );
 
 	if(engine_options.naive_caching) {
 		cache(draw_area, target, targetRect);
