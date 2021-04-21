@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <fstream>
 #include <sstream>
+#include <SDL.h>
 #include <SDL_image.h>
 #include <cerrno>
 #include "third_party/JSON/json.hpp"
@@ -85,12 +86,17 @@ inline SDL_Surface* load_surface(const std::string& path)
 		SDL_FreeSurface(loadedSurface);
 	}
 
+	SDL_SetSurfaceBlendMode(optimizedSurface, SDL_BLENDMODE_BLEND);
 	return optimizedSurface;
 }
 
 inline SDL_Texture* load_texture(const std::string& path)
 {
-	return IMG_LoadTexture(get_game_renderer(), path.c_str());
+	SDL_Texture* ret = IMG_LoadTexture(get_game_renderer(), path.c_str());
+
+	SDL_SetTextureBlendMode(ret, SDL_BLENDMODE_BLEND);
+	
+	return ret;
 }
 
 inline fs::path get_my_directory(const string& filepath)
@@ -112,7 +118,8 @@ inline std::string get_path_relative(const fs::path& base, const fs::path& rel)
 	if(is_directory(base))
 	{
 		absBase = fs::absolute(rel, base);
-	} else
+	}
+	else
 	{
 		absBase = fs::absolute(rel, base.parent_path());
 	}

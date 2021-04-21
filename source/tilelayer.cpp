@@ -18,14 +18,14 @@ TileLayer::TileLayer(const basic_json<>& json, const basic_json<>& tileDataJson,
 	this->tilesetKey = json["vsp"];
 	this->tileSet = tilesets[this->tilesetKey];
 
-	int idx = 0;
-	int x, y;
+	auto idx = 0;
+	
 	for (auto entry : tileDataJson)
 	{
 		if (entry != 0)
 		{
-			x = getXfromFlat(idx, this->dimensions.x);
-			y = getYfromFlat(idx, this->dimensions.x);
+			auto x = getXfromFlat(idx, this->dimensions.x);
+			auto y = getYfromFlat(idx, this->dimensions.x);
 			this->tileData[{x, y}] = entry;
 			this->hasY[y] = true;
 		}
@@ -87,7 +87,7 @@ void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRec
 	/// now we can draw!  Remember, Y goes on the outside loop you you draw things left to right and top down!
 	for(auto y=0; y<tilesTall; y++)
 	{
-		if (!this->hasY[y]) continue; // skip the x's if this layer has nothing in the whole y
+		if (!this->hasY[originTY+y]) continue; // skip the x's if this layer has nothing in the whole y
 		
 		for(auto x=0; x<tilesWide; x++)
 		{

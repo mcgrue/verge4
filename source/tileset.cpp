@@ -21,6 +21,7 @@ TileSet::TileSet(const string& inputFile)
 	assert_file_exists(pathToTilesetImage);
 	this->absPathToSrcImg = pathToTilesetImage;
 	this->srcImg = load_surface(this->absPathToSrcImg);
+	
 
 	this->src.h = this->dest.h = this->tilesize.height = json["tilesize"]["height"];
 	this->src.w = this->dest.w = this->tilesize.width = json["tilesize"]["width"];
