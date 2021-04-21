@@ -25,6 +25,7 @@ public:
 	~TileLayer() = default;
 
 	void draw(SDL_Renderer* renderer, SDL_Rect draw_area, SDL_Rect targetRect);
+	bool hasNoTiles();
 
 protected:
 	string name;

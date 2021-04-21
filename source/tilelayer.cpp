@@ -36,9 +36,14 @@ TileLayer::TileLayer(const basic_json<>& json, const basic_json<>& tileDataJson,
 
 #define TILE_OVERFLOW 1
 
+bool TileLayer::hasNoTiles()
+{
+	return this->tileData.size() == 0;
+}
+
 void TileLayer::draw(SDL_Renderer* renderer, SDL_Rect draw_area, SDL_Rect targetRect)
 {
-	if (this->alpha <= 0)
+	if (this->alpha <= 0 || this->hasNoTiles())
 	{
 		return;
 	}
