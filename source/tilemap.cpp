@@ -17,8 +17,8 @@ TileMap::TileMap(const string& inputFile)
 	const auto dataFile = inputFile.substr(0, inputFile.length() - 5) + ".data.json";
 	const auto bulkDataJson = get_json_from_file(dataFile);
 
-	const json layersArray = defJson["layers"];
-	const json layersBulkArray = bulkDataJson["tile_data"];
+	const json &layersArray = defJson["layers"];
+	const json &layersBulkArray = bulkDataJson["tile_data"];
 
 	/// load the tilesets first, so we can let the layers choose the reference it needs during instance without keeping a ptr to the parent map.
 	const std::map<string, string> vsps = defJson["vsp"];
