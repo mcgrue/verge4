@@ -13,7 +13,7 @@
 struct engine_options
 {
 	bool never_render_tile_0 = true;
-	bool naive_caching = true;
+	bool naive_caching = false;
 	bool pixel_movement_debug = false;
 };
 

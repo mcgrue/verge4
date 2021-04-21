@@ -34,7 +34,7 @@ TileLayer::TileLayer(const basic_json<>& json, const basic_json<>& tileDataJson,
 	}
 }
 
-#define TILE_OVERFLOW 2
+#define TILE_OVERFLOW 1
 
 void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect)
 {
@@ -54,6 +54,10 @@ void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRec
 	
 	int tilesWide = draw_area.w / tileWidth;
 	int tilesTall = draw_area.h / tileHeight;
+	
+	tilesWide += TILE_OVERFLOW;
+	tilesWide += TILE_OVERFLOW;
+	tilesWide += TILE_OVERFLOW;
 	tilesWide += TILE_OVERFLOW;
 	tilesWide += TILE_OVERFLOW;
 	tilesTall += TILE_OVERFLOW;
@@ -73,6 +77,7 @@ void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRec
 	{
 		originTX--;
 		renderOffsetX -= tileWidth;
+		tilesWide++;
 	}
 
 	int originTY = draw_area.y / tileHeight;
@@ -82,6 +87,7 @@ void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRec
 	{
 		originTY--;
 		renderOffsetY -= tileHeight;
+		tilesTall++;
 	}
 
 	/// now we can draw!  Remember, Y goes on the outside loop you you draw things left to right and top down!

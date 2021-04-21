@@ -75,7 +75,7 @@ void TileMap::draw( SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect
 		draw_area.w == this->cachedLocation.w 
 	)
 	{
-		SDL_BlitSurface(this->cachedBuffer, nullptr, target, &targetRect);
+		SDL_BlitSurface(this->cachedBuffer, &targetRect, target, &targetRect);
 		return;
 	}
 	
@@ -117,17 +117,15 @@ void TileMap::cache(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect
 
 	int depth = 32;
 	int pitch = 4 * target->w;
-	//
-	//this->cachedBuffer = SDL_CreateRGBSurfaceFrom(
-	//	target->pixels,
-	//	target->w, target->h,
-	//	depth, pitch, 
-	//	rmask, gmask, bmask, amask);
 
 	if(cachedBuffer == nullptr)
 	{
 		this->cachedBuffer = SDL_CreateRGBSurface(0, target->w, target->h, depth, rmask, gmask, bmask, amask);
 	}
 
+	cout << "SNAP! " << target->w << "," << target->h << endl;
+	cout << "FROM! " << targetRect.w << "," << targetRect.h << endl;
+	cout << "(from x,y) " << targetRect.x << "," << targetRect.y << endl;
+	
 	SDL_BlitSurface(target, &targetRect, this->cachedBuffer, &targetRect);
 }
