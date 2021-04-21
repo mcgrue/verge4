@@ -20,7 +20,7 @@ TileSet::TileSet(const string& inputFile)
 
 	assert_file_exists(pathToTilesetImage);
 	this->absPathToSrcImg = pathToTilesetImage;
-	this->srcImg = load_surface(this->absPathToSrcImg);
+	this->srcImg = load_texture(this->absPathToSrcImg);
 	
 
 	this->src.h = this->dest.h = this->tilesize.height = json["tilesize"]["height"];
@@ -68,7 +68,7 @@ inline TileSet::TileSet(TileSet&& o) noexcept
 	this->src = std::move(o.src);
 }
 
-void TileSet::drawTile(SDL_Surface* surface, tileindex_t idx, pixelcoordinates_t drawTo)
+void TileSet::drawTile(SDL_Renderer* renderer, tileindex_t idx, pixelcoordinates_t drawTo)
 {
 	if (idx == 0 && engine_options.never_render_tile_0)
 	{
@@ -81,10 +81,11 @@ void TileSet::drawTile(SDL_Surface* surface, tileindex_t idx, pixelcoordinates_t
 	dest.x = drawTo.x;
 	dest.y = drawTo.y;
 
-	SDL_BlitSurface(srcImg, &src, surface, &dest);
+	
+	SDL_RenderCopy(renderer, this->srcImg, &src, &dest);
 }
 
-SDL_Surface* TileSet::getSourceImage() const
+SDL_Texture* TileSet::getSourceImage() const
 {
 	return this->srcImg;
 }

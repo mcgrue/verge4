@@ -24,7 +24,7 @@ public:
 	TileLayer(const basic_json<>& json, const basic_json<>& tileData, std::map<string, TileSet*> tilesets);
 	~TileLayer() = default;
 
-	void draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect);
+	void draw(SDL_Renderer* renderer, SDL_Rect draw_area, SDL_Rect targetRect);
 
 protected:
 	string name;

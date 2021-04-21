@@ -19,8 +19,8 @@ public:
 	std::map<string, TileSet*> tilesets;
 	std::vector<TileLayer*> indexedLayers;
 
-	void draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect);
-	void cache(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect);
+	void draw(SDL_Renderer* renderer, SDL_Rect draw_area, SDL_Rect targetRect);
+	void cache(SDL_Renderer* renderer, SDL_Rect draw_area,  SDL_Rect targetRect);
 
 private:
 	string pathToJSON;
@@ -29,5 +29,5 @@ private:
 	std::list<TileLayer*> orderedLayers;
 
 	SDL_Rect cachedLocation;
-	SDL_Surface* cachedBuffer = nullptr;
+	SDL_Texture* cachedBuffer = nullptr;
 };

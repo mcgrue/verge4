@@ -29,14 +29,14 @@ public:
 
 	~TileSet() = default; // destructor
 
-	void drawTile(SDL_Surface* surface, tileindex_t idx, pixelcoordinates_t drawTo);
+	void drawTile(SDL_Renderer* renderer, tileindex_t idx, pixelcoordinates_t drawTo);
 	
-	SDL_Surface* getSourceImage() const;
+	SDL_Texture* getSourceImage() const;
 
 private:
 	string srcJSONPath;
 	
-	SDL_Surface* srcImg = nullptr;
+	SDL_Texture* srcImg = nullptr;
 	string absPathToSrcImg;
 	basic_json<> data = nullptr;
 	string pathToJSON;

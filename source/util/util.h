@@ -64,26 +64,6 @@ inline basic_json<> get_json_from_file(const std::string& filename)
 	return json::parse(get_file_contents(filename));
 }
 
-inline SDL_Surface* load_surface(const std::string& path)
-{
-	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if (loadedSurface == nullptr)
-	{
-		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
-		return nullptr;
-	}
-	else
-	{
-		if( SDL_SetSurfaceBlendMode(loadedSurface, SDL_BLENDMODE_BLEND) )
-		{
-			printf("Unable to set blendmode on image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-		}
-		
-		return loadedSurface;
-	}
-
-}
 
 inline SDL_Texture* load_texture(const std::string& path)
 {

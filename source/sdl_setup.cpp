@@ -10,8 +10,8 @@
 
 using namespace std;
 
-SDL_Surface* m_guy;
-SDL_Surface* m_tileset;
+SDL_Texture* m_guy;
+SDL_Rect m_guy_rect = { 0,0,22,43 };
 
 SDL_Rect     m_guy_previous_position, m_guy_position, m_map_position;
 double       m_image_x;
@@ -20,7 +20,6 @@ double       m_image_y;
 bool guy_is_moving = false;
 
 SDL_Window*   m_window;
-SDL_Surface*  m_window_surface;
 SDL_Event     m_window_event;
 SDL_Renderer* m_renderer;
 
@@ -39,20 +38,31 @@ SDL_Renderer* get_game_renderer()
 	return m_renderer;
 }
 
+SDL_Texture* get_current_screen_as_texture() {
+	return SDL_CreateTexture(m_renderer,
+		SDL_PIXELFORMAT_BGRA8888,
+		SDL_TEXTUREACCESS_STREAMING,
+		640,
+		480);
+}
 
-int cur_bg_r = std::to_integer<int>(engine_options.default_background_color.r);
-int cur_bg_g = std::to_integer<int>(engine_options.default_background_color.g);
-int cur_bg_b = std::to_integer<int>(engine_options.default_background_color.b);
+
+Uint8 cur_bg_r = std::to_integer<Uint8>(engine_options.default_background_color.r);
+Uint8 cur_bg_g = std::to_integer<Uint8>(engine_options.default_background_color.g);
+Uint8 cur_bg_b = std::to_integer<Uint8>(engine_options.default_background_color.b);
+
+SDL_Rect screen_rect = { 0,0,640,480 };
 
 void draw() {
-	
-	SDL_FillRect(m_window_surface, nullptr, SDL_MapRGB(m_window_surface->format, cur_bg_r, cur_bg_g, cur_bg_b));
+	SDL_SetRenderDrawColor(m_renderer, cur_bg_r, cur_bg_g, cur_bg_b, 1);
+	SDL_RenderFillRect(m_renderer, &screen_rect);
 
-	// level.draw({ 0,0,640,480 }, m_window_surface, { 0,0,640,480 });
-	level.draw({ (int)m_guy_position.x,(int)m_guy_position.y,640,480 }, m_window_surface, { 0,0,640,480 });
-	
-	SDL_BlitSurface(m_guy, nullptr, m_window_surface, &m_guy_position);
-	SDL_UpdateWindowSurface(m_window);
+	level.draw(m_renderer, { (int)m_guy_position.x,(int)m_guy_position.y,640,480 },  { 0,0,640,480 });
+
+	SDL_RenderCopy(m_renderer, m_guy, &m_guy_rect, &m_guy_position);
+
+	SDL_RenderPresent(m_renderer);
+	// SDL_UpdateWindowSurface(m_window);
 }
 
 double wait_a_second = 0;
@@ -122,26 +132,15 @@ void init() {
 		return;
 	}
 
-	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
 	if (m_renderer == nullptr) {
 		LOG( "SDL_CreateRenderer Error: " << SDL_GetError() );
 		return;
 	}
 
-	m_window_surface = SDL_GetWindowSurface(m_window);
-
-	if (!m_window_surface)
-	{
-		LOG( "Failed to get window's surface \n SDL2 Error: " << SDL_GetError() );
-		return;
-	}
-
-	SDL_SetSurfaceBlendMode(m_window_surface, SDL_BLENDMODE_BLEND);
-
 	SDL_SetWindowTitle(m_window, "Loading map...");
 	
-	m_guy = load_surface("assets/img/stick_figure.bmp");
-	// m_tileset = load_surface("assets/img/evil_lab.tiles.png");
+	m_guy = load_texture("assets/img/stick_figure.bmp");
 
 	level = TileMap("assets/maps/evil_lab_f1.map.json");
 
@@ -161,7 +160,6 @@ void init() {
 
 void destroy()
 {
-	SDL_FreeSurface(m_window_surface);
 	SDL_DestroyWindow(m_window);
 }
 

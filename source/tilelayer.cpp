@@ -36,7 +36,7 @@ TileLayer::TileLayer(const basic_json<>& json, const basic_json<>& tileDataJson,
 
 #define TILE_OVERFLOW 1
 
-void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRect)
+void TileLayer::draw(SDL_Renderer* renderer, SDL_Rect draw_area, SDL_Rect targetRect)
 {
 	if (this->alpha <= 0)
 	{
@@ -106,7 +106,7 @@ void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRec
 			int drawX = x * tileWidth + renderOffsetX;
 			int drawY = y * tileHeight + renderOffsetY;
 			
-			tileSet->drawTile(target, tileIdx, { { drawX, drawY } });
+			tileSet->drawTile(renderer, tileIdx, { { drawX, drawY } });
 		}
 	}
 

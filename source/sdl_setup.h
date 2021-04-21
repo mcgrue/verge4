@@ -13,9 +13,9 @@ enum class Direction
 
 void draw();
 void update(double delta_time);
-SDL_Surface* load_bmp(char const *path);
 void init();
 void destroy();
 void loop();
 SDL_Window* get_game_window();
 SDL_Renderer* get_game_renderer();
+SDL_Texture* get_current_screen_as_texture();
