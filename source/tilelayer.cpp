@@ -97,8 +97,8 @@ void TileLayer::draw(SDL_Rect draw_area, SDL_Surface* target, SDL_Rect targetRec
 				continue;
 			}
 
-			int drawX = x * this->tileSet->tilesize.width + renderOffsetX;
-			int drawY = y * this->tileSet->tilesize.height + renderOffsetY;
+			int drawX = x * tileWidth + renderOffsetX;
+			int drawY = y * tileHeight + renderOffsetY;
 			
 			tileSet->drawTile(target, tileIdx, { { drawX, drawY } });
 		}
