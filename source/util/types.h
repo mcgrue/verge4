@@ -29,5 +29,16 @@ union vec2f {
 	float m[2];
 };
 
+union vec2d {
+	struct {
+		double x, y;
+	};
+	struct {
+		double w, h;
+	};
+	double m[2];
+};
+
+typedef vec2d subpixel_coordinates_t;
 typedef vec2i pixelcoordinates_t;
 typedef vec2i screen_size_t;

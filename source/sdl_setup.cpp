@@ -10,20 +10,18 @@
 
 using namespace std;
 
-SDL_Texture* m_guy;
-SDL_Rect m_guy_rect = { 0,0,22,43 };
-
-SDL_Rect     m_guy_previous_position, m_guy_position, m_map_position;
-double       m_image_x;
-double       m_image_y;
+SDL_Texture* player_texture;
+SDL_Rect player_size = {0,0,22,43};
+SDL_Rect player_position = { 260, 180,22,43 };
+SDL_Rect player_previous_position = player_position;
+subpixel_coordinates_t player_location = { 260, 180 };
+Direction    player_direction;
 
 bool guy_is_moving = false;
 
 SDL_Window*   m_window;
 SDL_Event     m_window_event;
 SDL_Renderer* m_renderer;
-
-Direction    m_direction;
 
 TileSet		 vsp;
 TileMap		 level;
@@ -55,14 +53,15 @@ Uint8 cur_bg_g = std::to_integer<Uint8>(engine_options.default_background_color.
 Uint8 cur_bg_b = std::to_integer<Uint8>(engine_options.default_background_color.b);
 
 SDL_Rect screen_rect = { 0,0, cur_screen_w, cur_screen_h };
+SDL_Rect camera_rect = { 0,0, cur_screen_w, cur_screen_h };
 
 void draw() {
 	SDL_SetRenderDrawColor(m_renderer, cur_bg_r, cur_bg_g, cur_bg_b, 1);
 	SDL_RenderFillRect(m_renderer, &screen_rect);
 
-	level.draw(m_renderer, { (int)m_guy_position.x,(int)m_guy_position.y,cur_screen_w,cur_screen_h }, screen_rect);
+	level.draw(m_renderer, camera_rect, screen_rect);
 
-	SDL_RenderCopy(m_renderer, m_guy, &m_guy_rect, &m_guy_position);
+	SDL_RenderCopy(m_renderer, player_texture, &player_size, &player_position);
 
 	SDL_RenderPresent(m_renderer);
 }
@@ -85,40 +84,40 @@ void update(double delta_time) {
 		d = 1;
 	}
 	
-	switch (m_direction) {
+	switch (player_direction) {
 		case Direction::NONE:
 			break;
 		case Direction::UP:
-			m_image_y = m_image_y - d;
+			player_location.y -= d;
 			break;
 		case Direction::DOWN:
-			m_image_y = m_image_y + d;
+			player_location.y += d;
 			break;
 		case Direction::LEFT:
-			m_image_x = m_image_x - d;
+			player_location.x -= d;
 			break;
 		case Direction::RIGHT:
-			m_image_x = m_image_x + d;
+			player_location.x += d;
 			break;
 		default:
 			break;
 	}
 
-	if( m_guy_previous_position.x != m_guy_position.x || m_guy_previous_position.y != m_guy_position.y )
+	if( player_previous_position.x != player_position.x || player_previous_position.y != player_position.y )
 	{
 		guy_is_moving = true;
-		m_guy_previous_position.x = m_guy_position.x;
-		m_guy_previous_position.y = m_guy_position.y;
+		player_previous_position.x = player_position.x;
+		player_previous_position.y = player_position.y;
 
-		cout << "GUY MOVED TO " << m_guy_position.x << "," << m_guy_position.y << endl;
+		cout << "GUY MOVED TO " << player_position.x << "," << player_position.y << endl;
 	} else
 	{
 		guy_is_moving = false;
 	}
 	
 
-	m_guy_position.x = (int)m_image_x;
-	m_guy_position.y = (int)m_image_y;
+	player_position.x = (int)player_location.x;
+	player_position.y = (int)player_location.y;
 }
 
 void init() {
@@ -154,22 +153,9 @@ void init() {
 
 	SDL_SetWindowTitle(m_window, "Loading map...");
 	
-	m_guy = load_texture("assets/img/stick_figure.bmp");
+	player_texture = load_texture("assets/img/stick_figure.bmp");
 
 	level = TileMap("assets/maps/evil_lab_f1.map.json");
-
-	m_guy_position.x = 0;
-	m_guy_position.y = 0;
-	m_guy_position.w = 22;
-	m_guy_position.h = 43;
-
-	m_map_position.x = 0;
-	m_map_position.y = 0;
-	m_map_position.w = 320;
-	m_map_position.h = 1008;
-
-	m_image_x = 260.0;
-	m_image_y = 180.0;
 }
 
 void destroy()
@@ -191,27 +177,27 @@ void update_input(bool& keep_window_open)
 				Uint8 const *keys = SDL_GetKeyboardState(nullptr);
 
 				if (keys[SDL_SCANCODE_W] == 1 || keys[SDL_SCANCODE_UP] == 1) {
-					m_direction = Direction::UP;
+					player_direction = Direction::UP;
 				} 
 				else if (keys[SDL_SCANCODE_S] == 1 || keys[SDL_SCANCODE_DOWN] == 1) {
-					m_direction = Direction::DOWN;
+					player_direction = Direction::DOWN;
 				} 
 				else if (keys[SDL_SCANCODE_A] == 1 || keys[SDL_SCANCODE_LEFT] == 1) {
-					m_direction = Direction::LEFT;
+					player_direction = Direction::LEFT;
 				} 
 				else if (keys[SDL_SCANCODE_D] == 1 || keys[SDL_SCANCODE_RIGHT] == 1) {
-					m_direction = Direction::RIGHT;
+					player_direction = Direction::RIGHT;
 				}
 			}
 			break;
 		case SDL_KEYUP:
-			m_direction = Direction::NONE;
+			player_direction = Direction::NONE;
 			break;
 		}
 	}
 }
 
-void update_fps_counter(clock_t& deltaTime, unsigned& frames, double frameRate, double averageFrameTimeMilliseconds, const bool vsync)
+void update_fps_counter(clock_t& deltaTime, unsigned& frames, double& frameRate, double averageFrameTimeMilliseconds, const bool vsync)
 {
 	if (clockToMilliseconds(deltaTime) > 1000.0) { //every second
 		frameRate = (double)frames*0.5 + frameRate * 0.5; //more stable
