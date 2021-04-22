@@ -160,10 +160,18 @@ inline void set_window_title(string str) {
 	SDL_SetWindowTitle(get_game_window(), str.c_str());
 };
 
+
+#ifdef _DEBUG
 #define LOG(f) \
     do { std::stringstream s; \
          s << f; \
          cout << s.str() << endl; \
     } while (0)
+#endif
+
+#ifdef RELEASE
+#define LOG(f) \
+    // no logging!
+#endif
 
 // log(__FILE__, __LINE__, __FUNCTION__, s);

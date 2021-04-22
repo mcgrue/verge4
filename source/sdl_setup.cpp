@@ -16,7 +16,7 @@ SDL_Rect player_size = {0,0,22,43};
 SDL_Rect player_mapwise_position = { 100, 100,22,43 };
 SDL_Rect player_screenwise_position = { 0,0,22,43 };
 SDL_Rect player_previous_position = player_mapwise_position;
-subpixel_coordinates_t player_location = { 0, 2000 };
+subpixel_coordinates_t player_location = { 100, 100 };
 Direction    player_direction;
 
 bool guy_is_moving = false;
