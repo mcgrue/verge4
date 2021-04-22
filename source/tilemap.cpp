@@ -1,3 +1,4 @@
+#include <optional>
 using namespace std;
 
 #include <sdl.h>
@@ -7,55 +8,85 @@ using namespace std;
 #include "util/util.h"
 
 
-TileMap::TileMap(const string& inputFile)
+TileMap::TileMap(const string& input_file)
 {
-	const auto defJson = get_json_from_file(inputFile);
+	const auto def_JSON = get_json_from_file(input_file);
 
-
-	set_window_title(defJson["name"]);
+	set_window_title(def_JSON["name"]);
 	
-	const auto dataFile = inputFile.substr(0, inputFile.length() - 5) + ".data.json";
-	const auto bulkDataJson = get_json_from_file(dataFile);
+	const auto data_file = input_file.substr(0, input_file.length() - 5) + ".data.json";
+	const auto bulkDataJson = get_json_from_file(data_file);
 
-	const json &layersArray = defJson["layers"];
-	const json &layersBulkArray = bulkDataJson["tile_data"];
+	const json &layers_array = def_JSON["layers"];
+	const json &layers_bulk_array = bulkDataJson["tile_data"];
 
 	/// load the tilesets first, so we can let the layers choose the reference it needs during instance without keeping a ptr to the parent map.
-	const std::map<string, string> vsps = defJson["vsp"];
+	const std::map<string, string> vsps = def_JSON["vsp"];
 	for (const auto&[key, value] : vsps) {
 		LOG( key << " = " << value << "; " );
 
-		auto tileset = new TileSet(get_path_relative(inputFile, value));
+		TileSet* tile_set = new TileSet(get_path_relative(input_file, value));
 
-		this->tilesets[key] = tileset;
+		this->tilesets[key] = tile_set;
 	}
 	
-	if( layersArray.size() != layersBulkArray.size() )
+	if( layers_array.size() != layers_bulk_array.size() )
 	{
-		LOG( "layersCount (" << layersArray.size() << ") did not match (" << layersBulkArray.size() << ")" );
+		LOG( "layersCount (" << layers_array.size() << ") did not match (" << layers_bulk_array.size() << ")" );
 		exit(2);
 	}
 	else
 	{		
-		for( int i=0; i< layersArray.size(); i++ )
+		for( int i=0; i< layers_array.size(); i++ )
 		{
-			set_window_title(layersArray[i]["name"]);
+			set_window_title(layers_array[i]["name"]);
 			
-			auto tileLayer = new TileLayer(layersArray[i], layersBulkArray[i], this->tilesets);
+			auto tileLayer = new TileLayer(layers_array[i], layers_bulk_array[i], this->tilesets);
 			indexedLayers.push_back(tileLayer);
 		}
 	}
-	
-	this->data = defJson;
-	this->pathToJSON = inputFile;
-		
-	this->renderOrder = defJson["renderstring"];
 
-	for ( auto item : this->renderOrder )
+	/// This engine calculates a "Map's Size" on the dimensions of the base layer currently.
+	/// TODO: Consider having this as another top-level JSON variable in the definition file
+	TileLayer* baseLayer = indexedLayers[0];
+	tilesize_t baseTilesize = baseLayer->tileSet->tilesize();
+	int mapPW = baseTilesize.w * baseLayer->dimensions.x;
+	int mapPH = baseTilesize.h * baseLayer->dimensions.y;
+	this->_mapsizeInPixels = {0,0,mapPW,mapPH };
+	
+	this->data = def_JSON;
+	this->pathToJSON = input_file;
+		
+	this->renderOrder = def_JSON["renderstring"];
+
+	{
+		string tmp = def_JSON["render_mode"];
+		
+		transform(tmp.begin(), tmp.end(), tmp.begin(), ::tolower);
+		
+		if(tmp == "wrap_x")
+		{
+			this->_map_wrap_mode = WRAP_X;
+		}
+		else if (tmp == "wrap_y")
+		{
+			this->_map_wrap_mode = WRAP_Y;
+		}
+		else if (tmp == "wrap_x")
+		{
+			this->_map_wrap_mode = WRAP_BOTH;
+		}
+		else
+		{
+			this->_map_wrap_mode = NO_WRAP;
+		}
+	}
+
+	for ( auto const item : this->renderOrder )
 	{
 		if( item.is_number() )
 		{
-			auto layerPtr = indexedLayers[item];
+			TileLayer* layerPtr = indexedLayers[item];
 			orderedLayers.push_back(layerPtr);
 		}
 		else
@@ -98,10 +129,7 @@ void TileMap::cache(SDL_Renderer* renderer, SDL_Rect draw_area, SDL_Rect targetR
 {
 	this->cachedLocation = draw_area;
 
-	if(cachedBuffer == nullptr)
-	{
-		this->cachedBuffer = get_current_screen_as_texture();
-	}
+	this->cachedBuffer = get_current_screen_as_texture();
 
 	
 	// SDL_BlitSurface(renderer, &targetRect, this->cachedBuffer, &targetRect);

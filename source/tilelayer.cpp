@@ -54,8 +54,8 @@ void TileLayer::draw(SDL_Renderer* renderer, SDL_Rect draw_area, SDL_Rect target
 	// first calculate how many tiles we'll be iterating over based on this layer's tilesize
 	// (this engine doesnt assume all tilesets are uniform in size!)
 
-	int tileWidth = this->tileSet->tilesize.width;
-	int tileHeight = this->tileSet->tilesize.height;
+	int tileWidth = this->tileSet->_tile_size.w;
+	int tileHeight = this->tileSet->_tile_size.h;
 	
 	int tilesWide = draw_area.w / tileWidth + TILE_OVERFLOW * 2;
 	int tilesTall = draw_area.h / tileHeight + TILE_OVERFLOW;

@@ -16,6 +16,17 @@ class TileSet {
 
 	friend TileLayer;
 	//friend TileMap;
+
+private:
+	string src_JSON_path;
+	SDL_Texture* src_img = nullptr;
+	string abs_path_to_src_img;
+	basic_json<> data = nullptr;
+	string path_to_json;
+	tilesize_t _tile_size;
+	int tiles_per_row;
+	SDL_Rect src, dest;
+	
 	
 public:
 	TileSet();
@@ -33,14 +44,5 @@ public:
 	
 	SDL_Texture* getSourceImage() const;
 
-private:
-	string srcJSONPath;
-	
-	SDL_Texture* srcImg = nullptr;
-	string absPathToSrcImg;
-	basic_json<> data = nullptr;
-	string pathToJSON;
-	TileSize tilesize;
-	int tilesPerRow;
-	SDL_Rect src, dest;
+	tilesize_t tilesize() const { return this->_tile_size; }
 };

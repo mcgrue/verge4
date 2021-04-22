@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include <filesystem>
@@ -17,6 +17,14 @@ struct hex_color {
 	std::byte b;
 };
 
+enum map_wrap_mode
+{
+	NO_WRAP = 0,  // THE 🌎 IS A ⏹
+	WRAP_X = 1,   // THE 🌎 IS A 🥫
+	WRAP_Y = 2,   // THE 🌎 IS A 🧻
+	WRAP_BOTH = 3 // THE 🌎 IS A 🍩
+};
+
 struct engine_options
 {
 	bool never_render_tile_0 = true;
@@ -25,9 +33,9 @@ struct engine_options
 	hex_color default_background_color = {
 		std::byte{0x80}, std::byte{0x80}, std::byte{0x80}
 	};
-	screen_size_t game_screen_size =  {640, 480};
-	int scale_factor = 2;
-	
+	screen_size_t game_screen_size =  {320, 240};
+	int scale_factor = 4;
+	map_wrap_mode map_wrap_mode = NO_WRAP;
 };
 
 inline engine_options engine_options;

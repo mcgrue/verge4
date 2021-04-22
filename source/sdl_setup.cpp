@@ -5,6 +5,7 @@
 #include "sdl_setup.h"
 #include "tileset.h"
 #include "tilemap.h"
+#include "camera.h"
 
 #include "util/util.h"
 
@@ -12,9 +13,10 @@ using namespace std;
 
 SDL_Texture* player_texture;
 SDL_Rect player_size = {0,0,22,43};
-SDL_Rect player_position = { 260, 180,22,43 };
-SDL_Rect player_previous_position = player_position;
-subpixel_coordinates_t player_location = { 260, 180 };
+SDL_Rect player_mapwise_position = { 100, 100,22,43 };
+SDL_Rect player_screenwise_position = { 0,0,22,43 };
+SDL_Rect player_previous_position = player_mapwise_position;
+subpixel_coordinates_t player_location = { 0, 2000 };
 Direction    player_direction;
 
 bool guy_is_moving = false;
@@ -23,8 +25,8 @@ SDL_Window*   m_window;
 SDL_Event     m_window_event;
 SDL_Renderer* m_renderer;
 
-TileSet		 vsp;
-TileMap		 level;
+TileSet		vsp;
+TileMap*	level;
 
 SDL_Window* get_game_window()
 {
@@ -47,7 +49,6 @@ SDL_Texture* get_current_screen_as_texture() {
 		cur_screen_h);
 }
 
-
 Uint8 cur_bg_r = std::to_integer<Uint8>(engine_options.default_background_color.r);
 Uint8 cur_bg_g = std::to_integer<Uint8>(engine_options.default_background_color.g);
 Uint8 cur_bg_b = std::to_integer<Uint8>(engine_options.default_background_color.b);
@@ -59,9 +60,9 @@ void draw() {
 	SDL_SetRenderDrawColor(m_renderer, cur_bg_r, cur_bg_g, cur_bg_b, 1);
 	SDL_RenderFillRect(m_renderer, &screen_rect);
 
-	level.draw(m_renderer, camera_rect, screen_rect);
+	level->draw(m_renderer, camera_rect, screen_rect);
 
-	SDL_RenderCopy(m_renderer, player_texture, &player_size, &player_position);
+	SDL_RenderCopy(m_renderer, player_texture, &player_size, &player_screenwise_position);
 
 	SDL_RenderPresent(m_renderer);
 }
@@ -103,21 +104,28 @@ void update(double delta_time) {
 			break;
 	}
 
-	if( player_previous_position.x != player_position.x || player_previous_position.y != player_position.y )
+	if( player_previous_position.x != player_mapwise_position.x || player_previous_position.y != player_mapwise_position.y )
 	{
 		guy_is_moving = true;
-		player_previous_position.x = player_position.x;
-		player_previous_position.y = player_position.y;
+		player_previous_position.x = player_mapwise_position.x;
+		player_previous_position.y = player_mapwise_position.y;
 
-		cout << "GUY MOVED TO " << player_position.x << "," << player_position.y << endl;
-	} else
+		player_mapwise_position.x = static_cast<int>(player_location.x);
+		player_mapwise_position.y = static_cast<int>(player_location.y);
+
+		auto cam = clamp_camera(player_mapwise_position, camera_rect, screen_rect, level);
+		camera_rect = cam.first;
+		player_screenwise_position = cam.second;
+		
+		//cout << "GUY MOVED TO " << player_mapwise_position.x << "," << player_mapwise_position.y << endl;
+	}
+	else
 	{
 		guy_is_moving = false;
 	}
 	
-
-	player_position.x = (int)player_location.x;
-	player_position.y = (int)player_location.y;
+	player_mapwise_position.x = static_cast<int>(player_location.x);
+	player_mapwise_position.y = static_cast<int>(player_location.y);
 }
 
 void init() {
@@ -151,13 +159,18 @@ void init() {
 		return;
 	}
 	
-	SDL_RenderSetScale(m_renderer, engine_options.scale_factor, engine_options.scale_factor);
+	SDL_RenderSetScale(m_renderer, static_cast<float>(engine_options.scale_factor), static_cast<float>(engine_options.scale_factor));
 	
 	SDL_SetWindowTitle(m_window, "Loading map...");
 	
 	player_texture = load_texture("assets/img/stick_figure.bmp");
 
-	level = TileMap("assets/maps/evil_lab_f1.map.json");
+	level = new TileMap("assets/maps/evil_lab_f1.map.json");
+
+	/// set the camera correctly the first time
+	auto cam = clamp_camera(player_mapwise_position, camera_rect, screen_rect, level);
+	camera_rect = cam.first;
+	player_screenwise_position = cam.second;	
 }
 
 void destroy()
@@ -202,7 +215,7 @@ void update_input(bool& keep_window_open)
 void update_fps_counter(clock_t& deltaTime, unsigned& frames, double& frameRate, double averageFrameTimeMilliseconds, const bool vsync)
 {
 	if (clockToMilliseconds(deltaTime) > 1000.0) { //every second
-		frameRate = (double)frames*0.5 + frameRate * 0.5; //more stable
+		frameRate = static_cast<double>(frames)*0.5 + frameRate * 0.5; //more stable
 		frames = 0;
 		deltaTime -= CLOCKS_PER_SEC;
 		// averageFrameTimeMilliseconds = 1000.0 / (frameRate == 0 ? 0.001 : frameRate);
@@ -243,7 +256,7 @@ void loop() {
 		// LOG( "full update loop took " << endFrame - beginFrame << "ms" );
 
 		frameTime = endFrame - beginFrame;
-		deltaTime += (int)frameTime;
+		deltaTime += static_cast<int>(frameTime);
 		frames++;
 		
 		update_fps_counter(deltaTime, frames, frameRate, averageFrameTimeMilliseconds, vsync);

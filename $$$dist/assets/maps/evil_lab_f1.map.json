@@ -639,5 +639,6 @@
   "tallentitylayer": "Fishing",
   "MAPED_ENTLAYER_VISIBLE": true,
   "MAPED_ZONELAYER_VISIBLE": false,
-  "MAPED_OBSLAYER_VISIBLE": false
+  "MAPED_OBSLAYER_VISIBLE": false,
+  "render_mode": "no_wrap"
 }
