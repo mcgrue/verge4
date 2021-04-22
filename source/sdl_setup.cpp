@@ -157,8 +157,8 @@ void init() {
 	m_map_position.w = 320;
 	m_map_position.h = 1008;
 
-	m_image_x = 0.0;
-	m_image_y = 0.0;
+	m_image_x = 260.0;
+	m_image_y = 180.0;
 }
 
 void destroy()

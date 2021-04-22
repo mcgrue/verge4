@@ -34,7 +34,7 @@ TileLayer::TileLayer(const basic_json<>& json, const basic_json<>& tileDataJson,
 	}
 }
 
-#define TILE_OVERFLOW 1
+#define TILE_OVERFLOW 2
 
 bool TileLayer::hasNoTiles()
 {
@@ -57,17 +57,9 @@ void TileLayer::draw(SDL_Renderer* renderer, SDL_Rect draw_area, SDL_Rect target
 	int tileWidth = this->tileSet->tilesize.width;
 	int tileHeight = this->tileSet->tilesize.height;
 	
-	int tilesWide = draw_area.w / tileWidth;
-	int tilesTall = draw_area.h / tileHeight;
+	int tilesWide = draw_area.w / tileWidth + TILE_OVERFLOW * 2;
+	int tilesTall = draw_area.h / tileHeight + TILE_OVERFLOW;
 	
-	tilesWide += TILE_OVERFLOW;
-	tilesWide += TILE_OVERFLOW;
-	tilesWide += TILE_OVERFLOW;
-	tilesWide += TILE_OVERFLOW;
-	tilesWide += TILE_OVERFLOW;
-	tilesTall += TILE_OVERFLOW;
-	tilesTall += TILE_OVERFLOW;
-
 	// do we have to calc if offset and increment each by 1 if our x/y isnt on a perfect tile border?
 
 	// now calculate the render-target's pixel offset from the perfect tile grid
@@ -76,8 +68,6 @@ void TileLayer::draw(SDL_Renderer* renderer, SDL_Rect draw_area, SDL_Rect target
 	
 	// now calculate the starting tx and ty's we need to draw.
 	int originTX = draw_area.x / tileWidth;
-	originTX -= TILE_OVERFLOW;
-	renderOffsetX -= tileWidth * TILE_OVERFLOW;
 	if (renderOffsetX != 0)
 	{
 		originTX--;
@@ -86,8 +76,6 @@ void TileLayer::draw(SDL_Renderer* renderer, SDL_Rect draw_area, SDL_Rect target
 	}
 
 	int originTY = draw_area.y / tileHeight;
-	originTY -= TILE_OVERFLOW;
-	renderOffsetY -= tileHeight * TILE_OVERFLOW;
 	if (renderOffsetY != 0)
 	{
 		originTY--;
