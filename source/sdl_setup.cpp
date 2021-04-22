@@ -55,11 +55,10 @@ Uint8 cur_bg_g = std::to_integer<Uint8>(engine_options.default_background_color.
 Uint8 cur_bg_b = std::to_integer<Uint8>(engine_options.default_background_color.b);
 
 SDL_Rect screen_rect = { 0,0, cur_screen_w, cur_screen_h };
-SDL_Rect screen_fill_rect = { 0,0,cur_screen_w + 40, cur_screen_h };
 
 void draw() {
 	SDL_SetRenderDrawColor(m_renderer, cur_bg_r, cur_bg_g, cur_bg_b, 1);
-	SDL_RenderFillRect(m_renderer, &screen_fill_rect);
+	SDL_RenderFillRect(m_renderer, &screen_rect);
 
 	level.draw(m_renderer, { (int)m_guy_position.x,(int)m_guy_position.y,cur_screen_w,cur_screen_h }, screen_rect);
 
@@ -123,10 +122,22 @@ void update(double delta_time) {
 }
 
 void init() {
+
+	// just in case we want to use renderdoc...
+	int preferredDriver = -1;
+	int nDrivers = SDL_GetNumRenderDrivers();
+	for (int i = 0; i < nDrivers; i++)
+	{
+		SDL_RendererInfo info;
+		SDL_GetRenderDriverInfo(i, &info);
+		if (!strcmp(info.name, "opengles2"))
+			preferredDriver = i;
+	}
+	
 	m_window = SDL_CreateWindow("VERGE 4: The World's Most Extraneous 2d C++ Game Engine",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		680, 480,
+		cur_screen_w, cur_screen_h,
 		0);
 
 	if (!m_window)
@@ -135,7 +146,7 @@ void init() {
 		return;
 	}
 
-	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+	m_renderer = SDL_CreateRenderer(m_window, preferredDriver, SDL_RENDERER_ACCELERATED);
 	if (m_renderer == nullptr) {
 		LOG( "SDL_CreateRenderer Error: " << SDL_GetError() );
 		return;
