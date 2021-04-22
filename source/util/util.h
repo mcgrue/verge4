@@ -25,7 +25,8 @@ struct engine_options
 	hex_color default_background_color = {
 		std::byte{0x80}, std::byte{0x80}, std::byte{0x80}
 	};
-	screen_size_t initial_window_size =  {640, 480};
+	screen_size_t game_screen_size =  {640, 480};
+	int scale_factor = 2;
 	
 };
 

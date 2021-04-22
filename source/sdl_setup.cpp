@@ -36,8 +36,8 @@ SDL_Renderer* get_game_renderer()
 	return m_renderer;
 }
 
-int cur_screen_w = engine_options.initial_window_size.w;
-int cur_screen_h = engine_options.initial_window_size.h;
+int cur_screen_w = engine_options.game_screen_size.w;
+int cur_screen_h = engine_options.game_screen_size.h;
 
 SDL_Texture* get_current_screen_as_texture() {
 	return SDL_CreateTexture(m_renderer,
@@ -136,7 +136,7 @@ void init() {
 	m_window = SDL_CreateWindow("VERGE 4: The World's Most Extraneous 2d C++ Game Engine",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		cur_screen_w, cur_screen_h,
+		cur_screen_w * engine_options.scale_factor, cur_screen_h * engine_options.scale_factor,
 		0);
 
 	if (!m_window)
@@ -150,7 +150,9 @@ void init() {
 		LOG( "SDL_CreateRenderer Error: " << SDL_GetError() );
 		return;
 	}
-
+	
+	SDL_RenderSetScale(m_renderer, engine_options.scale_factor, engine_options.scale_factor);
+	
 	SDL_SetWindowTitle(m_window, "Loading map...");
 	
 	player_texture = load_texture("assets/img/stick_figure.bmp");
