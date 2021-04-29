@@ -27,6 +27,9 @@
     <ClCompile Include="source\camera.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\tileanimation.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\sdl_setup.h">
@@ -48,6 +51,9 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="source\camera.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tileanimation.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>

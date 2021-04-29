@@ -22,11 +22,11 @@ TileSet::TileSet(const string& inputFile)
 	this->abs_path_to_src_img = pathToTilesetImage;
 	this->src_img = load_texture(this->abs_path_to_src_img);
 	
-
 	this->src.h = this->dest.h = this->_tile_size.h = json["tilesize"]["height"];
 	this->src.w = this->dest.w = this->_tile_size.w = json["tilesize"]["width"];
 
 	this->tiles_per_row = json["tiles_per_row"];
+
 }
 
 TileSet& TileSet::operator=(TileSet& o) noexcept // copy

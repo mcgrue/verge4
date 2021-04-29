@@ -18,6 +18,7 @@ SDL_Rect player_screenwise_position = { 0,0,22,43 };
 SDL_Rect player_previous_position = player_mapwise_position;
 subpixel_coordinates_t player_location = { 100, 100 };
 Direction    player_direction;
+bool		 player_running;
 
 bool guy_is_moving = false;
 
@@ -84,21 +85,23 @@ void update(double delta_time) {
 		wait_a_second = 0;
 		d = 1;
 	}
+
+	int speed = player_running ? 3 : 2;
 	
 	switch (player_direction) {
 		case Direction::NONE:
 			break;
 		case Direction::UP:
-			player_location.y -= d;
+			player_location.y -= speed; //-= d;
 			break;
 		case Direction::DOWN:
-			player_location.y += d;
+			player_location.y += speed; // += d;
 			break;
 		case Direction::LEFT:
-			player_location.x -= d;
+			player_location.x -= speed; // d;
 			break;
 		case Direction::RIGHT:
-			player_location.x += d;
+			player_location.x += speed; // d;
 			break;
 		default:
 			break;
@@ -153,7 +156,7 @@ void init() {
 		return;
 	}
 
-	m_renderer = SDL_CreateRenderer(m_window, preferredDriver, SDL_RENDERER_ACCELERATED);
+	m_renderer = SDL_CreateRenderer(m_window, preferredDriver, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (m_renderer == nullptr) {
 		LOG( "SDL_CreateRenderer Error: " << SDL_GetError() );
 		return;
@@ -203,10 +206,16 @@ void update_input(bool& keep_window_open)
 				else if (keys[SDL_SCANCODE_D] == 1 || keys[SDL_SCANCODE_RIGHT] == 1) {
 					player_direction = Direction::RIGHT;
 				}
+
+				if(keys[SDL_SCANCODE_LCTRL] == 1)
+				{
+					player_running = true;
+				}
 			}
 			break;
 		case SDL_KEYUP:
 			player_direction = Direction::NONE;
+			player_running = false;
 			break;
 		}
 	}
@@ -220,12 +229,12 @@ void update_fps_counter(clock_t& deltaTime, unsigned& frames, double& frameRate,
 		deltaTime -= CLOCKS_PER_SEC;
 		// averageFrameTimeMilliseconds = 1000.0 / (frameRate == 0 ? 0.001 : frameRate);
 
-		/*
-		if (vsync)
+		
+		/*if (vsync)
 			LOG( "FrameTime was:" << averageFrameTimeMilliseconds );
 		else
-			LOG( "CPU time was:" << averageFrameTimeMilliseconds );
-		*/
+			LOG( "CPU time was:" << averageFrameTimeMilliseconds );*/
+		
 
 		stringstream title;
 		title << frameRate << " FPS";

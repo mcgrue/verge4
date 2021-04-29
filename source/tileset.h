@@ -23,9 +23,9 @@ private:
 	string abs_path_to_src_img;
 	basic_json<> data = nullptr;
 	string path_to_json;
-	tilesize_t _tile_size;
-	int tiles_per_row;
-	SDL_Rect src, dest;
+	tilesize_t _tile_size{};
+	int tiles_per_row{};
+	SDL_Rect src{}, dest{};
 	
 	
 public:
